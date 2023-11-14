@@ -1,3 +1,4 @@
+import AboutProject from "../AboutProject/aboutProject.jsx";
 import Header from "../Header/header.jsx";
 import Landing from "../Landing/landing.jsx";
 import Navigate from "../Navigate/navigate.jsx";
@@ -8,6 +9,7 @@ function App() {
       <Header />
       <Landing />
       <Navigate />
+      <AboutProject />
     </div>
   );
 }
