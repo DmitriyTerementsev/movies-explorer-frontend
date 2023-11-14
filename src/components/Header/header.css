@@ -17,13 +17,17 @@
 }
 
 .header__link {
-  margin: 0 0 0 16px;
+  margin: 0 16px 0 0;
   font-weight: 400;
   font-size: 13px;
   line-height: 18px;
   align-self: center;
   justify-self: center;
   text-decoration: none;
+}
+
+.header__link:last-of-type {
+  margin: 0;
 }
 
 .header__profile {
@@ -39,7 +43,7 @@
 .header__register {
   font-weight: 500;
   font-size: 12px;
-  line-height: 16 px;
+  line-height: 16px;
   align-self: center;
   justify-self: center;
   text-decoration: none;
@@ -52,4 +56,43 @@
   background-color: #3DDC84;
   margin: auto;
   border-radius: 3px;
+  appearance: none;
+  border: 0;
+  cursor: pointer;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+@media screen and (max-width: 1023px) {
+  .header {
+    display: flex;
+    width: 92%;
+    margin: 0 auto;
+    padding: 18px 0;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .header {
+    display: flex;
+    width: 91%;
+    margin: 0 auto;
+    padding: 18px 0;
+  }
+
+  .header__register {
+    font-size: 10px;
+    margin-right: 14px;
+  }
+
+  .header__links {
+    display: none
+  }
+
+  .header__button {
+    width: 54px;
+    height: 26px;
+    font-size: 10px;
+    line-height: 16px;
+  }
 }
