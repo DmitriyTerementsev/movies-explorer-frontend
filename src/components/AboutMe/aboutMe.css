@@ -19,7 +19,7 @@
 
 .student__line {
   width: 100%;
-  border: 1px solid #dadada;
+  border: 1px solid #424242;
   margin-top: 23px;
 }
 
@@ -134,6 +134,11 @@
 }
 
 @media screen and (max-width: 767px) {
+  .student__container {
+    padding-top: 70px;
+    padding-bottom: 70px;
+  }
+
   .student__about {
     margin-top: 60px;
   }
