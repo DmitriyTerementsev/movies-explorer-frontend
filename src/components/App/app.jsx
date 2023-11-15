@@ -1,3 +1,4 @@
+import AboutMe from "../AboutMe/aboutMe.jsx";
 import AboutProject from "../AboutProject/aboutProject.jsx";
 import Header from "../Header/header.jsx";
 import Landing from "../Landing/landing.jsx";
@@ -12,6 +13,7 @@ function App() {
       <Navigate />
       <AboutProject />
       <Technologies />
+      <AboutMe />
     </div>
   );
 }

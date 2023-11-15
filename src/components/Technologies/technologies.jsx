@@ -10,25 +10,25 @@ function Technologies() {
           дипломном проекте.
         </p>
         <ul className="technologies__list">
-          <li class="tech">
+          <li className="tech">
             <p className="tech__text">HTML</p>
           </li>
-          <li class="tech">
+          <li className="tech">
             <p className="tech__text">CSS</p>
           </li>
-          <li class="tech">
+          <li className="tech">
             <p className="tech__text">JS</p>
           </li>
-          <li class="tech">
+          <li className="tech">
             <p className="tech__text">React</p>
           </li>
-          <li class="tech">
+          <li className="tech">
             <p className="tech__text">Git</p>
           </li>
-          <li class="tech">
+          <li className="tech">
             <p className="tech__text">Express.js</p>
           </li>
-          <li class="tech">
+          <li className="tech">
             <p className="tech__text">MongoDB</p>
           </li>
         </ul>
