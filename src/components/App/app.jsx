@@ -4,18 +4,20 @@ import Footer from "../Footer/footer.jsx";
 import Header from "../Header/header.jsx";
 import Landing from "../Landing/landing.jsx";
 import Navigate from "../Navigate/navigate.jsx";
+import Search from "../Search/search.jsx";
 import Technologies from "../Technologies/technologies.jsx";
 
 function App() {
   return (
     <div className="root">
       <Header />
-      <Landing />
+      <Search />
+      { /* <Landing />
       <Navigate />
       <AboutProject />
       <Technologies />
       <AboutMe />
-      <Footer />
+  <Footer />  */}
     </div>
   );
 }
