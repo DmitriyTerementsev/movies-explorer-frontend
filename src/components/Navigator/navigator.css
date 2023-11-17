@@ -1,17 +1,17 @@
-.navigate {
+.navigator {
   background-color: #272727;
   padding-top: 24px;
   padding-bottom: 24px;
   margin: 0 auto;
 }
 
-.navigate__links {
+.navigator__links {
   display: flex;
   list-style-type: none;
   justify-content: center;
 }
 
-.navigate__link {
+.navigator__link {
   margin-right: 40px;
   font-size: 13px;
   font-weight: 500;
@@ -19,12 +19,12 @@
   border-bottom: 2px solid #ffffff;
 }
 
-.navigate__link:last-of-type {
+.navigator__link:last-of-type {
   margin: 0px;
 }
 
 @media screen and (max-width: 767px) {
-  .navigate__link {
+  .navigator__link {
     margin-right: 24px;
     font-size: 11px;
   }

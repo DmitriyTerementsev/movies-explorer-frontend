@@ -1,15 +1,34 @@
+import { Link, Route, Routes } from "react-router-dom";
 import headerLogo from "../../images/header__logo.svg";
-import headerProfile from '../../images/header__profile.svg'
+import headerProfile from "../../images/header__profile.svg";
 
 function Header() {
   return (
     <header className="header">
       <img src={headerLogo} alt="Лого" className="header__logo" />
       <div className="header__links">
-        <div className="header__link">Фильмы</div>
-        <div className="header__link">Сохранённые фильмы</div>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <Link to="/films" className="header__link">
+                Фильмы
+              </Link>
+            }
+          />
+        </Routes>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <Link to="/saved-films" className="header__link">
+                Сохранённые фильмы
+              </Link>
+            }
+          />
+        </Routes>
       </div>
-      { /* <img src={headerProfile} alt="Профиль" className="header__profile" />  */ }
+      {/* <img src={headerProfile} alt="Профиль" className="header__profile" />  */}
       <div className="header__auth">
         <h3 className="header__register">Регистрация</h3>
         <button className="header__button">Войти</button>

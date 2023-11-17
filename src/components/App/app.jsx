@@ -1,27 +1,29 @@
-import AboutMe from "../AboutMe/aboutMe.jsx";
-import AboutProject from "../AboutProject/aboutProject.jsx";
-import Films from "../Films/films.jsx";
-import Footer from "../Footer/footer.jsx";
-import Header from "../Header/header.jsx";
-import Landing from "../Landing/landing.jsx";
-import More from "../More/more.jsx";
-import Navigate from "../Navigate/navigate.jsx";
-import Search from "../Search/search.jsx";
-import Technologies from "../Technologies/technologies.jsx";
+import { Routes, Route } from "react-router-dom";
+import Footer from "../Footer/Footer.jsx";
+import Header from "../Header/Header.jsx";
+import Main from "../Main/Main.jsx";
+import SectionFilms from "../SectionFilms/SectionFilms.jsx";
+import SavedFilms from "../SavedFilms/SavedFilms.jsx";
+import Account from "../Account/Account.jsx";
 
 function App() {
   return (
     <div className="root">
       <Header />
-      <Search />
-      <Films />
-      <More />
-      { /* <Landing />
-      <Navigate />
-      <AboutProject />
-      <Technologies />
-      <AboutMe />
-  <Footer />  */}
+      <Account />
+      {/*
+      <Header />
+      <Routes>
+        <Route path="/" element={<Main />} />
+      </Routes>
+      <Routes>
+        <Route path="/films" element={<SectionFilms />} />
+      </Routes>
+      <Routes>
+        <Route path="/saved-films" element={<SavedFilms />} />
+      </Routes>
+      <Footer />
+      */}
     </div>
   );
 }
