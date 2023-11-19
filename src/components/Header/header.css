@@ -33,6 +33,7 @@
 .header__profile {
   width: 100px;
   height: 32px;
+  margin: auto 0;
 }
 
 .header__auth {
