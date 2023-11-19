@@ -5,28 +5,19 @@ import headerProfile from "../../images/header__profile.svg";
 function Header() {
   return (
     <header className="header">
-      <img src={headerLogo} alt="Лого" className="header__logo" />
+            <Link to="/">
+            <img src={headerLogo} alt="Лого" className="header__logo" />
+            </Link>
+
+
       <div className="header__links">
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <Link to="/films" className="header__link">
-                Фильмы
-              </Link>
-            }
-          />
-        </Routes>
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <Link to="/saved-films" className="header__link">
-                Сохранённые фильмы
-              </Link>
-            }
-          />
-        </Routes>
+        <Link to="/films" className="header__link">
+          Фильмы
+        </Link>
+
+        <Link to="/saved-films" className="header__link">
+          Сохранённые фильмы
+        </Link>
       </div>
       {/* <img src={headerProfile} alt="Профиль" className="header__profile" />  */}
       <div className="header__auth">
