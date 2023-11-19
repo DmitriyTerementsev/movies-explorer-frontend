@@ -63,6 +63,10 @@
   line-height: 16px;
 }
 
+.header__button-text {
+  text-decoration: none;
+}
+
 @media screen and (max-width: 1023px) {
   .header {
     display: flex;

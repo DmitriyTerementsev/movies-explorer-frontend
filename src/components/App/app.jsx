@@ -6,15 +6,21 @@ import SectionFilms from "../SectionFilms/SectionFilms.jsx";
 import SavedFilms from "../SavedFilms/SavedFilms.jsx";
 import Account from "../Account/Account.jsx";
 import Registration from "../Registration/Registration.jsx";
+import Login from "../Login/Login.jsx";
 
 function App() {
   return (
     <div className="root">
       <Header />
-      <Registration />
-
-      {/*<Account />
-
+      <Routes>
+        <Route path="/profile" element={<Account />} />
+      </Routes>
+      <Routes>
+        <Route path="/sign-in" element={<Login />} />
+      </Routes>
+      <Routes>
+        <Route path="/sign-up" element={<Registration />} />
+      </Routes>
       <Routes>
         <Route path="/" element={<Main />} />
       </Routes>
@@ -25,7 +31,6 @@ function App() {
         <Route path="/saved-films" element={<SavedFilms />} />
       </Routes>
       <Footer />
-      */}
     </div>
   );
 }
