@@ -13,12 +13,14 @@ import NotFoundPage from "../NotFoundPage/NotFoundPage.jsx";
 function App() {
   return (
     <div className="root">
-      <NotFoundPage />
       <Header />
       <Routes>
         <Route path="/" element={<Main />} />
       </Routes>
 
+      <Routes>
+        <Route path="/Not-Found" element={<NotFoundPage />} />
+      </Routes>
       <Routes>
         <Route path="/profile" element={<Account />} />
       </Routes>

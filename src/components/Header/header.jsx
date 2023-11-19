@@ -26,11 +26,9 @@ function Header() {
           Регистрация
         </Link>
 
-        <button className="header__button">
-          <Link to="/sign-in" className="header__button-text">
-            Войти
-          </Link>
-        </button>
+        <Link to="/sign-in" className="header__button">
+          <button className="header__button">Войти</button>
+        </Link>
       </div>
     </header>
   );

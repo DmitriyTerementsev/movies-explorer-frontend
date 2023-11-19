@@ -1,5 +1,6 @@
 import Me from "../../images/Me.jpg";
 import textLink from "../../images/text-link.svg";
+import { Link } from "react-router-dom";
 
 function AboutMe() {
   return (
@@ -19,20 +20,44 @@ function AboutMe() {
             ушёл с работы и решил направить все силы на изучение JavaScript,
             React и ещё много всего интересного.
           </p>
-          <p className="student__link">Github</p>
+          <Link
+            to="https://github.com/Alchimik981"
+            target="_blank"
+            className="student__link"
+          >
+            Github
+          </Link>
         </div>
         <ul className="student__projects">
           <p className="student__portfolio">Портфолио</p>
           <li className="student__project">
-            <p className="project__name">Статичный сайт</p>
+            <Link
+              to="https://alchimik981.github.io/how-to-learn/"
+              target="_blank"
+              className="project__name"
+            >
+              Статичный сайт
+            </Link>
             <img src={textLink} alt="Стрелка" className="project__link" />
           </li>
           <li className="student__project">
-            <p className="project__name">Адаптивный сайт</p>
+            <Link
+              to="https://alchimik981.github.io/russian-travel/"
+              target="_blank"
+              className="project__name"
+            >
+              Адаптивный сайт
+            </Link>
             <img src={textLink} alt="Стрелка" className="project__link" />
           </li>
           <li className="student__project">
-            <p className="project__name">Одностраничное приложение</p>
+            <Link
+              to="https://github.com/Alchimik981/react-mesto-api-full-gha"
+              target="_blank"
+              className="project__name"
+            >
+              Одностраничное приложение
+            </Link>
             <img src={textLink} alt="Стрелка" className="project__link" />
           </li>
         </ul>

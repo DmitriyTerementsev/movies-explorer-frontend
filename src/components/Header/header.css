@@ -55,17 +55,13 @@
   width: 76px;
   height: 32px;
   background-color: #3DDC84;
-  margin: auto;
+  margin: auto 0;
   border-radius: 3px;
   appearance: none;
   border: 0;
   cursor: pointer;
   font-size: 12px;
   line-height: 16px;
-}
-
-.header__button-text {
-  text-decoration: none;
 }
 
 @media screen and (max-width: 1023px) {
