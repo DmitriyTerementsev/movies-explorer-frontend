@@ -1,4 +1,16 @@
 .header {
+  background-color: #073042;
+}
+
+.header_inactive {
+  display: none;
+}
+
+.header_section {
+  background-color: #202020;
+}
+
+.header__container {
   display: flex;
   width: 90%;
   margin: 0 auto;
@@ -54,7 +66,7 @@
 .header__button {
   width: 76px;
   height: 32px;
-  background-color: #3DDC84;
+  background-color: #3ddc84;
   margin: auto 0;
   border-radius: 3px;
   appearance: none;
@@ -64,17 +76,34 @@
   line-height: 16px;
 }
 
+.header__burger {
+  display: none;
+}
+
 @media screen and (max-width: 1023px) {
-  .header {
+  .header__container {
     display: flex;
     width: 92%;
     margin: 0 auto;
     padding: 18px 0;
   }
+
+  .header__burger {
+    margin-left: auto;
+    display: block;
+  }
+
+  .header__auth {
+    display: none;
+  }
+
+  .header__links {
+    display: none;
+  }
 }
 
 @media screen and (max-width: 767px) {
-  .header {
+  .header__container {
     display: flex;
     width: 91%;
     margin: 0 auto;
@@ -87,7 +116,7 @@
   }
 
   .header__links {
-    display: none
+    display: none;
   }
 
   .header__button {

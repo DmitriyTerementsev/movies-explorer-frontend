@@ -4,6 +4,10 @@
   padding-bottom: 20px;
 }
 
+.footer_inactive {
+  display: none;
+}
+
 .footer__container {
   width: 89%;
   margin: 0 auto;

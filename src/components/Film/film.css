@@ -3,6 +3,7 @@
   height: 281px;
   background-color: #222222;
   box-shadow: 0px 4px 30px 0px #00000014;
+  justify-self: center;
 }
 
 .film__section {
@@ -24,6 +25,18 @@
   font-size: 13px;
   font-weight: 500;
   line-height: 16px;
+}
+
+@media screen and (max-width: 1023px) {
+  .film {
+    width: 339px;
+    height: 262px;
+  }
+
+  .film__image {
+    width: 339px;
+    height: 190px;
+  }
 }
 
 @media screen and (max-width: 767px) {

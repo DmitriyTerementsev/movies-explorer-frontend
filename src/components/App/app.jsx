@@ -1,4 +1,5 @@
 import { Routes, Route } from "react-router-dom";
+import { useState } from "react";
 import Footer from "../Footer/Footer.jsx";
 import Header from "../Header/Header.jsx";
 import Main from "../Main/Main.jsx";
@@ -17,7 +18,6 @@ function App() {
       <Routes>
         <Route path="/" element={<Main />} />
       </Routes>
-
       <Routes>
         <Route path="/Not-Found" element={<NotFoundPage />} />
       </Routes>
