@@ -3,7 +3,7 @@ import Film from "../Film/Film";
 function Films() {
   return (
     <section className="films">
-      <div className="films__grid">
+      <ul className="films__grid">
       <Film />
       <Film />
       <Film />
@@ -12,7 +12,7 @@ function Films() {
       <Film />
       <Film />
       <Film />
-      </div>
+      </ul>
     </section>
   );
 }

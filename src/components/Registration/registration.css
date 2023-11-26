@@ -1,7 +1,7 @@
 .register {
   width: 396px;
   padding-top: 70px;
-  padding-bottom: 70px;
+  padding-bottom: 90px;
   display: flex;
   flex-direction: column;
   margin: 0 auto;
@@ -64,10 +64,13 @@
   background-color: #4285f4;
   border-radius: 3px;
   margin-top: 70px;
+  transition: 0.5s;
 }
 
 .register__button:hover {
   cursor: pointer;
+  opacity: 80%;
+  transition: 0.5s;
 }
 
 .register__button_login {
@@ -87,9 +90,14 @@
   color: #4285f4;
   margin-left: 6px;
   text-decoration: none;
+  transition: 0.5s;
 }
 
-
+.register__accent:hover {
+  cursor: pointer;
+  opacity: 80%;
+  transition: 0.5s;
+}
 
 @media screen and (max-width: 767px) {
   .register {
@@ -104,5 +112,9 @@
 
   .register__button {
     margin-top: 157px;
+  }
+
+  .register__title {
+    text-align: center;
   }
 }

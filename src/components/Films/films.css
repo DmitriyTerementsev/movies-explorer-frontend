@@ -11,7 +11,8 @@
   grid-template-columns: 1fr 1fr 1fr;
   column-gap: 24px;
   row-gap: 37px;
-  
+  padding-left: 0;
+  list-style-type: none;
 }
 
 @media screen and (max-width: 1279px) {

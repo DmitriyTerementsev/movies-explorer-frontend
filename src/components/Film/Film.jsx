@@ -3,14 +3,21 @@ import likeIcon from "../../images/icon__COLOR_stroke-2.svg";
 
 function Film() {
   return (
-    <div className="film">
-      <img src={filmImg} alt="Картинка Фильма" className="film__image" />
+    <li className="film">
+      <img
+        src={filmImg}
+        alt="Картинка Фильма"
+        className="film__image"
+        required
+      />
       <div className="film__section">
         <p className="film__name">33 слова о дизайне</p>
-        <img src={likeIcon} alt="Лайк" className="film__like-icon" />
+        <button className="film__like-button">
+          <img src={likeIcon} alt="Лайк" className="film__like-icon" />
+        </button>
       </div>
       <p className="film__time">1ч 47м</p>
-    </div>
+    </li>
   );
 }
 

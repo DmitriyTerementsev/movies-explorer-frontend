@@ -30,36 +30,34 @@ function AboutMe() {
         </div>
         <ul className="student__projects">
           <p className="student__portfolio">Портфолио</p>
-          <li className="student__project">
-            <Link
-              to="https://alchimik981.github.io/how-to-learn/"
-              target="_blank"
-              className="project__name"
-            >
-              Статичный сайт
-            </Link>
+
+          <Link
+            to="https://alchimik981.github.io/how-to-learn/"
+            target="_blank"
+            className="project__name"
+          >
+            <li className="student__project">Статичный сайт</li>
+
             <img src={textLink} alt="Стрелка" className="project__link" />
-          </li>
-          <li className="student__project">
-            <Link
-              to="https://alchimik981.github.io/russian-travel/"
-              target="_blank"
-              className="project__name"
-            >
-              Адаптивный сайт
-            </Link>
+          </Link>
+
+          <Link
+            to="https://alchimik981.github.io/russian-travel/"
+            target="_blank"
+            className="project__name"
+          >
+            <li className="student__project">Адаптивный сайт</li>
             <img src={textLink} alt="Стрелка" className="project__link" />
-          </li>
-          <li className="student__project">
-            <Link
-              to="https://github.com/Alchimik981/react-mesto-api-full-gha"
-              target="_blank"
-              className="project__name"
-            >
-              Одностраничное приложение
-            </Link>
+          </Link>
+
+          <Link
+            to="https://github.com/Alchimik981/react-mesto-api-full-gha"
+            target="_blank"
+            className="project__name"
+          >
+            <li className="student__project">Одностраничное приложение</li>
             <img src={textLink} alt="Стрелка" className="project__link" />
-          </li>
+          </Link>
         </ul>
       </div>
     </section>

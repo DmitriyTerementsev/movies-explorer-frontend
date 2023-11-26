@@ -7,6 +7,7 @@
 .root {
   background-color: #202020;
   min-width: 320px;
+  max-width: 1660px;
   margin: 0 auto;
   font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

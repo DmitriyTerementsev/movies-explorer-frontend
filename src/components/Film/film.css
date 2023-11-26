@@ -27,6 +27,12 @@
   line-height: 16px;
 }
 
+.film__like-button {
+  appearance: none;
+  border: 0;
+  background-color: #222222;
+}
+
 @media screen and (max-width: 1023px) {
   .film {
     width: 339px;
@@ -36,6 +42,14 @@
   .film__image {
     width: 339px;
     height: 190px;
+  }
+
+  .film__section {
+    margin: 14px;
+  }
+
+  .film__like-icon {
+    margin-right: 28px;
   }
 }
 
@@ -64,5 +78,9 @@
     margin: 17px 0 0 14px;
     font-size: 10px;
     line-height: 12px;
+  }
+
+  .film__like-icon {
+    margin-right: 0;
   }
 }

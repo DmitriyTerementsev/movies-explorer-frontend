@@ -4,7 +4,9 @@ import { Link } from "react-router-dom";
 function Login() {
   return (
     <div className="register">
-      <img src={logo} alt="Лого" className="register__logo" />
+      <Link to="/">
+        <img src={logo} alt="Лого" className="register__logo" />
+      </Link>
       <h3 className="register__title">Рады видеть!</h3>
       <form className="register__form">
         <p className="register__input-name">E-mail</p>

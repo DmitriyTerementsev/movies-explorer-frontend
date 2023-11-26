@@ -21,17 +21,31 @@
   border-radius: 40px;
 }
 
+.search__input:focus {
+  outline: 0;
+  box-shadow: 0 0 10px 5px #1e90ff;
+}
+
 .search__button {
-  position: absolute;
+  background-image: url(../../images/find.svg);
   width: 34px;
   height: 34px;
+  background-size: contain;
+  background-repeat: no-repeat;
   border-radius: 50%;
+  position: absolute;
   top: 6px;
-  right: -1%;
+  right: -17px;
   appearance: none;
   border: 0;
   cursor: pointer;
   background-color: #4285f4;
+  transition: 0.5s;
+}
+
+.search__button:hover {
+  opacity: 80%;
+  transition: 0.5s;
 }
 
 .search__switch {
@@ -68,7 +82,7 @@
 }
 
 .switch_active .switch__icon {
-  margin-left: auto;
+  margin-left: 45%;
 }
 
 .switch__text {
