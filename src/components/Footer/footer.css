@@ -54,6 +54,10 @@
   text-decoration: none;
 }
 
+.footer__nav-link {
+  text-decoration: none;
+}
+
 .footer__link:last-of-type {
   margin-right: 0;
 }

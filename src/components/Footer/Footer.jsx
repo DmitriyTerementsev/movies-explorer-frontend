@@ -15,7 +15,7 @@ function Footer() {
               <Link
                 to="https://practicum.yandex.ru/"
                 target="_blank"
-                className="footer__link"
+                className="footer__nav-link"
               >
                 Яндекс.Практикум
               </Link>
@@ -25,7 +25,7 @@ function Footer() {
               <Link
                 to="https://github.com/Alchimik981"
                 target="_blank"
-                className="footer__link"
+                className="footer__nav-link"
               >
                 Github
               </Link>

@@ -1,5 +1,6 @@
 .register {
   width: 396px;
+  height: 100vh;
   padding-top: 70px;
   padding-bottom: 90px;
   display: flex;

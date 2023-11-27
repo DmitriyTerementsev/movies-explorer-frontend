@@ -24,7 +24,7 @@ function AboutProject() {
             </p>
           </div>
         </div>
-        <div className="project__perfomance">
+        <div className="perfomance">
           <div className="project__backend">
             <p className="perfomance__text perfomance__text_back">1 неделя</p>
             <p className="perfomance__part">Back-end</p>

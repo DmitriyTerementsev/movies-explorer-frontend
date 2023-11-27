@@ -10,9 +10,9 @@ function Login() {
       <h3 className="register__title">Рады видеть!</h3>
       <form className="register__form">
         <p className="register__input-name">E-mail</p>
-        <input type="text" className="register__input" />
+        <input type="email" className="register__input" required/>
         <p className="register__input-name">Пароль</p>
-        <input type="text" className="register__input" />
+        <input type="password" className="register__input" required/>
         <button className="register__button register__button_login">
           Войти
         </button>

@@ -28,36 +28,54 @@ function AboutMe() {
             Github
           </Link>
         </div>
+        <p className="student__portfolio">Портфолио</p>
         <ul className="student__projects">
-          <p className="student__portfolio">Портфолио</p>
+          <li className="student__project">
+            <Link
+              to="https://alchimik981.github.io/how-to-learn/"
+              target="_blank"
+              className="student__project-name"
+            >
+              <p className="student__project-title">Статичный сайт</p>
+              <img
+                src={textLink}
+                alt="Стрелка"
+                className="student__project-link"
+              />
+            </Link>
+          </li>
 
-          <Link
-            to="https://alchimik981.github.io/how-to-learn/"
-            target="_blank"
-            className="project__name"
-          >
-            <li className="student__project">Статичный сайт</li>
+          <li className="student__project">
+            <Link
+              to="https://alchimik981.github.io/russian-travel/"
+              target="_blank"
+              className="student__project-name"
+            >
+              <p className="student__project-title">Адаптивный сайт</p>
+              <img
+                src={textLink}
+                alt="Стрелка"
+                className="student__project-link"
+              />
+            </Link>
+          </li>
 
-            <img src={textLink} alt="Стрелка" className="project__link" />
-          </Link>
-
-          <Link
-            to="https://alchimik981.github.io/russian-travel/"
-            target="_blank"
-            className="project__name"
-          >
-            <li className="student__project">Адаптивный сайт</li>
-            <img src={textLink} alt="Стрелка" className="project__link" />
-          </Link>
-
-          <Link
-            to="https://github.com/Alchimik981/react-mesto-api-full-gha"
-            target="_blank"
-            className="project__name"
-          >
-            <li className="student__project">Одностраничное приложение</li>
-            <img src={textLink} alt="Стрелка" className="project__link" />
-          </Link>
+          <li className="student__project">
+            <Link
+              to="https://github.com/Alchimik981/react-mesto-api-full-gha"
+              target="_blank"
+              className="student__project-name"
+            >
+              <p className="student__project-title">
+                Одностраничное приложение
+              </p>
+              <img
+                src={textLink}
+                alt="Стрелка"
+                className="student__project-link"
+              />
+            </Link>
+          </li>
         </ul>
       </div>
     </section>

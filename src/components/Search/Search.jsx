@@ -9,7 +9,7 @@ function Search() {
   return (
     <section className="search">
       <form className="search__form">
-        <input type="text" className="search__input" placeholder="Фильм"/>
+        <input type="text" className="search__input" placeholder="Фильм" minlength="2" maxlength="40" required/>
         <button className="search__button"></button>
         <div className="search__switch">
           <button

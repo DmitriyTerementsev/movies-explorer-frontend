@@ -107,18 +107,27 @@
 }
 
 .header__button_active {
-  display: block;
+  display: flex;
   width: 76px;
   height: 32px;
   background-color: #3ddc84;
   margin: auto 0;
   border-radius: 3px;
+  cursor: pointer;
+  font-size: 12px;
+  line-height: 16px;
+  text-decoration: none;
+}
+
+.header__button-text {
+  background-color: #3ddc84;
   appearance: none;
   border: 0;
   cursor: pointer;
   font-size: 12px;
   line-height: 16px;
   color: #000000;
+  margin: auto;
   text-decoration: none;
 }
 

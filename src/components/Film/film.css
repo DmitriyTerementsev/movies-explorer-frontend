@@ -7,14 +7,14 @@
 }
 
 .film__section {
-  width: 332px;
-  margin: 16px auto;
+  max-width: 332px;
+  margin: 14px auto;
   display: flex;
   justify-content: space-between;
 }
 
 .film__time {
-  margin: 17px 0 0 16px;
+  margin: 12px 0 0 16px;
   font-size: 11px;
   font-weight: 400;
   line-height: 13px;
@@ -45,7 +45,7 @@
   }
 
   .film__section {
-    margin: 14px;
+    margin: 14px 0 0 14px;
   }
 
   .film__like-icon {
@@ -66,7 +66,6 @@
 
   .film__section {
     width: 272px;
-    margin: 14px auto;
   }
 
   .film__name {
@@ -75,7 +74,7 @@
   }
 
   .film__time {
-    margin: 17px 0 0 14px;
+    margin: 10px 0 0 14px;
     font-size: 10px;
     line-height: 12px;
   }
