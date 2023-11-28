@@ -1,9 +1,9 @@
 function More() {
-  return <section className="more">
-    <button className="more__button">
-      Ещё
-    </button>
-  </section>;
+  return (
+    <div className="more">
+      <button className="more__button">Ещё</button>
+    </div>
+  );
 }
 
 export default More;

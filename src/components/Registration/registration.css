@@ -105,6 +105,7 @@
     width: 260px;
     padding-top: 56px;
     padding-bottom: 30px;
+    align-items: center;
   }
 
   .register__logo {
@@ -117,5 +118,10 @@
 
   .register__title {
     text-align: center;
+  }
+
+  .register__text {
+    font-size: 12px;
+    line-height: 15px;
   }
 }

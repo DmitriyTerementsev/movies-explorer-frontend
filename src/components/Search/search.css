@@ -68,7 +68,7 @@
   cursor: pointer;
 }
 
-.switch__icon {
+.search__switch-icon {
   width: 16px;
   height: 16px;
   border-radius: 50%;
@@ -81,11 +81,11 @@
   background-color: #2be080;
 }
 
-.switch_active .switch__icon {
+.switch_active .search__switch-icon {
   margin-left: 45%;
 }
 
-.switch__text {
+.search__switch-text {
   font-size: 14px;
   font-weight: 400;
   line-height: 18px;

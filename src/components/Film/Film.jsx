@@ -8,7 +8,6 @@ function Film() {
         src={filmImg}
         alt="Картинка Фильма"
         className="film__image"
-        required
       />
       <div className="film__section">
         <p className="film__name">33 слова о дизайне</p>
