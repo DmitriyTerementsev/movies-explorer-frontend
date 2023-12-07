@@ -5,7 +5,7 @@ import { useLocation } from "react-router-dom";
 import closeIcon from "../../images/close.svg";
 import burgerIcon from "../../images/burger.svg";
 
-function Header() {
+function Header({ handleClickBurger, isActiveBurger, loggedIn }) {
   const mainRoute = useLocation().pathname === "/";
 
   return (
@@ -15,7 +15,11 @@ function Header() {
           <img src={headerLogo} alt="Лого" className="header__logo" />
         </Link>
 
-        <div className="header__links">
+        <div
+          className={
+            loggedIn ? "header__links" : "header__links header__links_inactive"
+          }
+        >
           <Link to="/films" className="header__link">
             Фильмы
           </Link>
@@ -24,13 +28,17 @@ function Header() {
             Сохранённые фильмы
           </Link>
         </div>
-        <div className="header__auth">
+        <div
+          className={
+            loggedIn ? "header__auth" : "header__auth header__auth_active"
+          }
+        >
           <Link
             to="/profile"
             className={
-              mainRoute
-                ? "header__profile"
-                : "header__profile header__profile_active"
+              loggedIn
+                ? "header__profile header__profile_active"
+                : "header__profile"
             }
           >
             <p className="header__profile-text">Аккаунт</p>
@@ -43,9 +51,9 @@ function Header() {
             </div>
           </Link>
           <Link
-            to="/sign-up"
+            to="/signup"
             className={
-              mainRoute
+              mainRoute && !loggedIn
                 ? "header__register header__register_active"
                 : "header__register"
             }
@@ -53,9 +61,9 @@ function Header() {
             Регистрация
           </Link>
           <Link
-            to="/sign-in"
+            to="/signin"
             className={
-              mainRoute
+              mainRoute && !loggedIn
                 ? "header__button header__button_active"
                 : "header__button"
             }
@@ -63,10 +71,20 @@ function Header() {
             <p className="header__button-text">Войти</p>
           </Link>
         </div>
-        <img src={burgerIcon} alt="icon" className="header__burger" />
-        <div className="burger">
+        <button
+          className={
+            loggedIn
+              ? "header__burger"
+              : "header__burger header__burger_inactive"
+          }
+          onClick={handleClickBurger}
+        ></button>
+        <div className={isActiveBurger ? "burger burger_active" : "burger"}>
           <button className="burger__close">
-            <img src={closeIcon} alt="icon" className="burger__close-icon" />
+            <button
+              className="burger__close-icon"
+              onClick={handleClickBurger}
+            ></button>
           </button>
           <ul className="burger__links">
             <li>
@@ -85,12 +103,20 @@ function Header() {
               </Link>
             </li>
             <li>
-              <Link to="/profile" className="burger__link">
-                <img
-                  src={headerProfile}
-                  alt="Профиль"
-                  className="header__profile"
-                />
+              <Link
+                to="/profile"
+                className={
+                  "header__profile header__profile_active header__profile_active_burger"
+                }
+              >
+                <p className="header__profile-text">Аккаунт</p>
+                <div className="header__profile-icon-back">
+                  <img
+                    src={headerProfile}
+                    alt="icon"
+                    className="header__profile-icon"
+                  />
+                </div>
               </Link>
             </li>
           </ul>

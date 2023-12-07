@@ -1,51 +1,52 @@
-export function MainApi(url) {
-  //---------Форма для запроса на сервер для получения данных
+const BASE_URL = "http://api.movies-trmntsv.nomoredomainsmonster.ru";
+const checkError = (res) => {
+  if (res.ok) {
+    return res.json();
+  } else {
+    return Promise.reject(`Ошибка: ${res.status}`);
+  }
+};
+const localToken = localStorage.getItem("token");
 
-  const localToken = localStorage.getItem("token");
+export const register = (data) =>
+  fetch(`${BASE_URL}/signup`, {
+    method: "POST",
+    credentials: "include",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  }).then(checkError);
 
-  const request = (path, method, data) => {
-    return fetch(`${url}/${path}`, {
-      method: method,
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localToken}`,
-      },
-      body: data && JSON.stringify(data),
-    }).then(checkError);
-  };
+export const login = (data) =>
+  fetch(`${BASE_URL}/signin`, {
+    method: "POST",
+    credentials: "include",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  }).then(checkError);
 
-  //---------Получить код ошибки
+export const checkToken = () =>
+  fetch(`${BASE_URL}/users/me`, {
+    method: "GET",
+    credentials: "include",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localToken}`,
+    },
+  }).then(checkError);
 
-  const getError = (err) => {
-    console.log(err);
-  };
-
-  //---------Проверить ошибку
-
-  const checkError = (res) => {
-    if (res.ok) {
-      return res.json();
-    } else {
-      return Promise.reject(`Ошибка: ${res.status}`);
-    }
-  };
-
-  //---------Получить данные пользователя
-
-  const getUserInfo = () => {
-    return request("users/me");
-  };
-
-  //---------Установить данные пользователя
-
-  const setUserInfo = (data) => {
-    return request("users/me", "PATCH", data);
-  };
-
-  return {
-    getError,
-    getUserInfo,
-    setUserInfo,
-  };
-}
+export const logout = () =>
+  fetch(`${BASE_URL}/signout`, {
+    method: 'POST',
+    credentials: 'include',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+  }).then(checkError);

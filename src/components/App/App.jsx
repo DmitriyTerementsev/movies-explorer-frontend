@@ -1,4 +1,10 @@
-import { Routes, Route, useLocation } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  useLocation,
+  useNavigate,
+  Navigate,
+} from "react-router-dom";
 import { useState, useEffect } from "react";
 import Footer from "../Footer/Footer.jsx";
 import Header from "../Header/Header.jsx";
@@ -9,11 +15,16 @@ import Account from "../Account/Account.jsx";
 import Registration from "../Registration/Registration.jsx";
 import Login from "../Login/Login.jsx";
 import NotFoundPage from "../NotFoundPage/NotFoundPage.jsx";
-import { MainApi } from "../../utils/MainApi.js";
-import { MoviesApi } from "../../utils/MoviesApi.js";
+import * as MainApi from "../../utils/MainApi";
+import * as MoviesApi from "../../utils/MoviesApi.js";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute.jsx";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext.js";
 
 function App() {
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
+  const [isActiveBurger, setIsActiveBurger] = useState(false);
+
   const routes = {
     main: "/",
     movies: "/films",
@@ -40,52 +51,103 @@ function App() {
     return showElement;
   }
 
-  const [loggedIn, setLoggedIn] = useState(false);
+  function handleClickBurger() {
+    isActiveBurger === false
+      ? setIsActiveBurger(true)
+      : setIsActiveBurger(false);
+  }
 
+  function handleRegister(name, email, password) {
+    MainApi.register({ name, email, password })
+      .then(() => handleLogin(email, password))
+      .catch((err) => console.log(err));
+  }
+
+  function handleLogin(email, password) {
+    MainApi.login({ email, password })
+      .then((res) => {
+        setLoggedIn(true);
+        localStorage.setItem("token", res.token);
+      })
+      .catch((err) => console.log(err));
+  }
+
+  const token = localStorage.getItem("token");
   useEffect(() => {
-    if (loggedIn) {
-      getUserInfo()
-        .then((res) => {
-          setUserInfo(res);
-          getFilms().then().catch(getError);
+    if (token) {
+      MainApi.checkToken()
+        .then(() => {
+          setLoggedIn(true);
         })
-        .catch(getError);
+        .catch((err) => {
+          console.log(err);
+          localStorage.removeItem("token");
+        });
+    } else {
+      localStorage.removeItem("token");
     }
-  }, [loggedIn]);
-
-  const { getError, getUserInfo, setUserInfo } = MainApi(
-    "https://api.mestotrmntsv.nomoredomainsrocks.ru"
-  );
-
-  const { getFilms, createFilm, deleteFilm, toggleLike } = MoviesApi(
-    "https://api.nomoreparties.co/beatfilm-movies"
-  );
+  }, []);
 
   return (
     <div className="root">
-      <Routes>
-        <Route path="/sign-in" element={<Login />} />
-      </Routes>
-      <Routes>
-        <Route path="/sign-up" element={<Registration />} />
-      </Routes>
-      {ShowHeader() && <Header />}
-      <Routes>
-        <Route path="/" element={<Main />} />
-      </Routes>
-      <Routes>
-        <Route path="/not-found" element={<NotFoundPage />} />
-      </Routes>
-      <Routes>
-        <Route path="/profile" element={<Account />} />
-      </Routes>
-      <Routes>
-        <Route path="/films" element={<SectionFilms />} />
-      </Routes>
-      <Routes>
-        <Route path="/saved-films" element={<SavedFilms />} />
-      </Routes>
-      {ShowFooter() && <Footer />}
+      <CurrentUserContext.Provider value={currentUser}>
+        {ShowHeader() && (
+          <Header
+            loggedIn={loggedIn}
+            handleClickBurger={handleClickBurger}
+            isActiveBurger={isActiveBurger}
+          />
+        )}
+        <Routes>
+          <Route path="/" element={<Main />} />
+
+          <Route
+            path="/films"
+            element={
+              <ProtectedRoute loggedIn={loggedIn} children={<SectionFilms />} />
+            }
+          />
+
+          <Route
+            path="/saved-films"
+            element={
+              <ProtectedRoute loggedIn={loggedIn} children={<SavedFilms />} />
+            }
+          />
+
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute loggedIn={loggedIn} children={<Account />} />
+            }
+          />
+
+          <Route
+            path="/signup"
+            element={
+              <ProtectedRoute
+                loggedIn={!loggedIn}
+                children={<Registration onRegister={handleRegister} />}
+              />
+            }
+          />
+
+          <Route
+            path="/signin"
+            element={
+              <ProtectedRoute
+                loggedIn={!loggedIn}
+                children={<Login onLogin={handleLogin} />}
+              />
+            }
+          />
+
+          <Route path="/not-found" element={<NotFoundPage />} />
+
+          <Route path="*" element={<Navigate to="/not-found" replace />} />
+        </Routes>
+        {ShowFooter() && <Footer />}
+      </CurrentUserContext.Provider>
     </div>
   );
 }
