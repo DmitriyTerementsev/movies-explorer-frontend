@@ -1,24 +1,43 @@
 import { useState } from "react";
 
-function Search() {
+function Search({ onSearch, query, setQuery, isChecked, onChecked }) {
   const [isActive, setActive] = useState("false");
   const handleToggle = () => {
     setActive(!isActive);
   };
+  const [isEmptyQuery, setIsEmptyQuery] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (query.trim() === "") {
+      setIsEmptyQuery("Нужно ввести ключевое слово");
+    } else {
+      onSearch(query);
+      setIsEmptyQuery("");
+    }
+  };
+
+  const handleChange = (e) => {
+    setQuery(e.target.value);
+  };
 
   return (
     <div className="search">
-      <form className="search__form">
+      <form className="search__form" onSubmit={handleSubmit}>
         <input
           type="text"
           className="search__input"
           placeholder="Фильм"
-          minlength="2"
-          maxlength="40"
+          minLength="2"
+          maxLength="40"
           required
+          onChange={handleChange}
+          value={query}
         />
         <button className="search__button"></button>
-        <div className="search__switch">
+        <div
+          className="search__switch"
+        >
           <button
             type="button"
             className={isActive ? "switch" : "switch switch_active"}

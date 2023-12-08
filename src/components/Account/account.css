@@ -1,65 +1,204 @@
 .account {
-  width: 410px;
-  margin: 74px auto 0 auto;
-  padding-bottom: 84px;
+  background-color: #202020;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 100px;
+}
+
+.account__success-tooltip {
+  color: #fff;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 1.2;
+  margin: 0 auto 20px;
+  width: 100%;
+  height: 13px;
+  display: block;
 }
 
 .account__title {
+  color: #fff;
   font-size: 24px;
   font-weight: 500;
-  line-height: 29px;
-  text-align: center;
+  line-height: 1.2;
+  margin: 74px auto 0;
 }
 
-.account__form {
+.account__info {
+  width: 410px;
+  margin: 123px auto 0;
+}
+
+.account__info-line {
   display: flex;
   flex-direction: column;
-  margin: 123px auto 0 auto;
 }
 
-.account__name {
+.account__input-group {
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
 }
 
-.account__mail {
-  display: flex;
-  margin-top: 17px;
-  justify-content: space-between;
+.account__info-line:first-of-type {
+  border-bottom: 1px solid #424242;
+  padding-bottom: 4px;
 }
 
-.account__text {
+.account__info-line:last-of-type {
+  padding-top: 17px;
+  margin-bottom: 187px;
+}
+
+.account__input-title {
+  color: #fff;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.2;
+  padding: 0;
+  margin: 0;
+}
+
+.account__caption {
+  padding: 0;
+  margin: 0;
+  color: #fff;
+  text-align: right;
   font-size: 11px;
   font-weight: 400;
-  line-height: 13px;
+  line-height: 1.2;
 }
 
-.account__line {
-  width: 100%;
-  margin-top: 17px;
-  border: 1px solid #424242;
-}
-
-.account__edit {
-  margin-top: 220px;
+.account__edit-button {
+  background-color: transparent;
+  border: none;
+  color: #fff;
+  text-align: center;
   font-size: 13px;
   font-weight: 400;
-  line-height: 16px;
-  text-align: center;
+  line-height: 1.2;
+  padding: 0;
+  margin: 0 auto 16px;
+  width: 410px;
 }
 
-.account__exit {
-  margin-top: 16px;
+.account__edit-button:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+.account__sign-out-button {
+  background-color: transparent;
+  border: none;
+  color: #ee3465;
+  text-align: center;
   font-size: 13px;
   font-weight: 500;
-  line-height: 16px;
-  text-align: center;
-  color: #ee3465;
+  line-height: 1.2;
+  padding: 0;
+  margin: 0 auto 70px;
+  width: 410px;
 }
 
+.account__sign-out-button:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
 
-@media screen and (max-width: 767px) {
-  .account {
-    width: 260px
+.account__input-error {
+  height: 12px;
+  color: #ee3465;
+  font-size: 10px;
+  line-height: 1.2;
+  text-align: right;
+}
+
+.account__input {
+  padding: 0;
+  margin: 0;
+  color: #fff;
+  text-align: right;
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 1.2;
+  background-color: #202020;
+  border: none;
+}
+
+.account__save-button {
+  width: 100%;
+  height: 45px;
+  flex-shrink: 0;
+  border-radius: 3px;
+  background: #4285f4;
+  border: none;
+  color: #fff;
+  padding: 0;
+  margin: 0 auto 70px;
+}
+
+.account__save-button:hover {
+  opacity: 0.8;
+}
+
+.account__save-button:disabled {
+  background-color: #f8f8f8;
+  color: #c2c2c2;
+}
+
+.account__error {
+  color: #ff004c;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 1.2;
+  padding-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+  .account__title {
+    margin-top: 236px;
+  }
+
+  .account__info {
+    margin-top: 96px;
+  }
+
+  .account__info-line:last-of-type {
+    margin-bottom: 177px;
+  }
+
+  .account__sign-out-button {
+    margin-bottom: 269px;
+  }
+
+  .account__save-button {
+    margin-bottom: 269px;
+  }
+}
+
+@media (max-width: 480px) {
+  .account__title {
+    margin-top: 70px;
+  }
+  .account__info {
+    width: 260px;
+    margin: 80px auto 379px;
+  }
+
+  .account__info-line:last-of-type {
+    margin-bottom: 346px;
+  }
+
+  .account__sign-out-button {
+    font-size: 12px;
+    margin-bottom: 40px;
+    width: 100%;
+  }
+
+  .account__edit-button {
+    font-size: 12px;
+    width: 100%;
   }
 }

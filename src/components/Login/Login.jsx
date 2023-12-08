@@ -21,7 +21,7 @@ function Login({ onLogin }) {
         <img src={logo} alt="Лого" className="register__logo" />
       </Link>
       <h3 className="register__title">Рады видеть!</h3>
-      <form className="register__form">
+      <form className="register__form" onSubmit={handleSubmit}>
         <p className="register__input-name">E-mail</p>
         <input
           type="email"

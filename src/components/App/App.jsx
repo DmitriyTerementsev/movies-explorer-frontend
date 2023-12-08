@@ -25,6 +25,12 @@ function App() {
   const [currentUser, setCurrentUser] = useState(null);
   const [isActiveBurger, setIsActiveBurger] = useState(false);
 
+  const [isEditing, setIsEditing] = useState(false);
+  const [isSending, setIsSending] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const[isError, setIsError] = useState(false);
+  const [errorType, setErrorType] = useState("");
+
   const routes = {
     main: "/",
     movies: "/films",
@@ -57,6 +63,20 @@ function App() {
       : setIsActiveBurger(false);
   }
 
+  useEffect(() => {
+    function closeByEscape(evt) {
+      if (evt.key === "Escape") {
+        setIsActiveBurger(false);
+      }
+    }
+    if (isActiveBurger === true) {
+      document.addEventListener("keydown", closeByEscape);
+      return () => {
+        document.removeEventListener("keydown", closeByEscape);
+      };
+    }
+  }, [isActiveBurger]);
+
   function handleRegister(name, email, password) {
     MainApi.register({ name, email, password })
       .then(() => handleLogin(email, password))
@@ -76,8 +96,9 @@ function App() {
   useEffect(() => {
     if (token) {
       MainApi.checkToken()
-        .then(() => {
+        .then((userInfo) => {
           setLoggedIn(true);
+          setCurrentUser(userInfo);
         })
         .catch((err) => {
           console.log(err);
@@ -87,6 +108,40 @@ function App() {
       localStorage.removeItem("token");
     }
   }, []);
+
+  function handleSignOut() {
+    localStorage.removeItem("token");
+    setLoggedIn(false);
+  }
+
+  const handleEditProfile = (data) => {
+    setIsSending(true);
+    const token = localStorage.getItem("token");
+    MainApi.editProfile(data, token)
+      .then((user) => {
+        setCurrentUser(user);
+        setIsSuccess(true);
+        setIsEditing(false);
+        setIsSending(false);
+      })
+      .catch((error) => {
+        setIsSending(false);
+        setIsError(true);
+        console.log(error);
+        if (error === 409) {
+          setErrorType("conflict");
+        } else if (error === 500) {
+          setErrorType("server");
+        } else {
+          setErrorType("edit");
+        }
+      });
+  };
+
+  const handleEditClick = () => {
+    setIsEditing(true);
+    setIsError(false);
+  };
 
   return (
     <div className="root">
@@ -118,7 +173,22 @@ function App() {
           <Route
             path="/profile"
             element={
-              <ProtectedRoute loggedIn={loggedIn} children={<Account />} />
+              <ProtectedRoute
+                loggedIn={loggedIn}
+                children={
+                  <Account
+                    handleSignOut={handleSignOut}
+                    onEditProfile={handleEditProfile}
+                    errorType={errorType}
+                    isError={isError}
+                    isSuccess={isSuccess}
+                    isEditing={isEditing}
+                    onEditClick={handleEditClick}
+                    setIsError={setIsError}
+                    isSending={isSending}
+                  />
+                }
+              />
             }
           />
 

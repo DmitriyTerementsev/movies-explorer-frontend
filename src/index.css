@@ -15,3 +15,5 @@
 @import url(./components/Account/account.css);
 @import url(./components/Registration/registration.css);
 @import url(./components/NotFoundPage/not-found-page.css);
+@import url(./components/PreLoader/PreLoader.css);
+@import url(./components/InfoToolTip/infotooltip.css);

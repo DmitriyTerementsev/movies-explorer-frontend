@@ -1,4 +1,5 @@
 const BASE_URL = "http://api.movies-trmntsv.nomoredomainsmonster.ru";
+
 const checkError = (res) => {
   if (res.ok) {
     return res.json();
@@ -43,10 +44,26 @@ export const checkToken = () =>
 
 export const logout = () =>
   fetch(`${BASE_URL}/signout`, {
-    method: 'POST',
-    credentials: 'include',
+    method: "POST",
+    credentials: "include",
     headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
+      Accept: "application/json",
+      "Content-Type": "application/json",
     },
   }).then(checkError);
+
+export const editProfile = (data, token) => {
+  fetch(`${BASE_URL}/users/me`, {
+    method: "PATCH",
+    credentials: "include",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({
+      name: data.name,
+      email: data.email,
+    }),
+  }).then(checkError);
+};

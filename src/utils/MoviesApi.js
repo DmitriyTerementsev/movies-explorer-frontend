@@ -1,65 +1,42 @@
-export function MoviesApi(url) {
-  //---------Форма для запроса на сервер для получения данных
+const BASE_URL = "https://api.nomoreparties.co/beatfilm-movies";
 
-  const localToken = localStorage.getItem("token");
+const checkError = (res) => {
+  if (res.ok) {
+    return res.json();
+  } else {
+    return Promise.reject(`Ошибка: ${res.status}`);
+  }
+};
 
-  const request = (path, method, data) => {
-    return fetch(`${url}/${path}`, {
-      method: method,
-      credentials: 'include',
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localToken}`,
-      },
-      body: data && JSON.stringify(data),
-    }).then(checkError);
-  };
+export function getFilms() {
+  return fetch(`${BASE_URL}`).then(checkError);
+}
 
-  //---------Получить код ошибки
-
-  const getError = (err) => {
-    console.log(err);
-  };
-
-  //---------Проверить ошибку
-
-  const checkError = (res) => {
-    if (res.ok) {
-      return res.json();
-    } else {
-      return Promise.reject(`Ошибка: ${res.status}`);
-    }
-  };
-
-  //---------Получить данные пользователя
-
-  const getFilms = () => {
-    return request("/");
-  };
-
-  //---------Установить данные пользователя
-
-  const createFilm = (data) => {
-    return request("/", "POST", data);
-  };
-
-  //---------Удалить карточку
-
-  const deleteFilm = (id) => {
-    return request(`cards/_${id}`, "DELETE");
-  };
-
-  //---------Поставить/удалить лайк с карточки
-
-  const toggleLike = (id, isLiked) => {
-    return request(`_${id}/likes`, isLiked ? "DELETE" : "PUT");
-  };
-
-  return {
-    getError,
-    getFilms,
-    createFilm,
-    deleteFilm,
-    toggleLike,
-  };
+export function filterMovies(items) {
+  return items.map((item) => {
+    const {
+      country,
+      director,
+      duration,
+      year,
+      description,
+      trailerLink,
+      nameRU,
+      nameEN,
+    } = item;
+    const filteredMovies = {
+      country,
+      director,
+      duration,
+      year,
+      description,
+      trailerLink,
+      nameRU,
+      nameEN,
+    };
+    filteredMovies.image = `${BASE_URL}${item.image.url}`;
+    filteredMovies.movieId = item.id;
+    filteredMovies.thumbnail = `${BASE_URL}${item.image.formats.thumbnail.url}`;
+    return filteredMovies;
+  });
 }

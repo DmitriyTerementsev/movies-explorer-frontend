@@ -1,10 +1,9 @@
 import Film from "../Film/Film";
 
-function Films() {
+function Films({}) {
   return (
     <div className="films">
-      <ul className="films__grid">
-      </ul>
+      <ul className="films__grid"></ul>
     </div>
   );
 }
