@@ -21,7 +21,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "predeploy": "npm run build"
+    "predeploy": "npm run build",
+    "deploy": "npm run build && scp -r ./build/* trmntsv@51.250.87.8:/home/trmntsv/frontend"
   },
   "eslintConfig": {
     "extends": [
