@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import FilterCheckbox from "../Checkbox/Checkbox";
 
-function SearchForm({ searchFilterMovie, onfilterMoviesFilms, isShortMovies }) {
+function SearchForm({ searchFilterMovie, onFilterMoviesFilms, isShortMovies }) {
   const [isQueryError, setIsQueryError] = useState(false);
   const [query, setQuery] = useState("");
   const location = useLocation();
@@ -47,7 +47,7 @@ function SearchForm({ searchFilterMovie, onfilterMoviesFilms, isShortMovies }) {
 
       <FilterCheckbox
         isShortMovies={isShortMovies}
-        onfilterMoviesFilms={onfilterMoviesFilms}
+        onFilterMoviesFilms={onFilterMoviesFilms}
       />
       {isQueryError && ( <span className="search__form-error">Введите ключевое слово</span>)}
 

@@ -8,6 +8,7 @@ function Account({ isLoading, signOut, onUpdateUser }) {
   const { inputValues, errorMessages, handleChange, isValid, resetForm } =
     useForm();
   const [isLastValues, setIsLastValues] = useState(false);
+
   useEffect(() => {
     if (currentUser) {
       resetForm(currentUser);
@@ -37,8 +38,7 @@ function Account({ isLoading, signOut, onUpdateUser }) {
     <>
       <main className="account">
         <div className="account__container">
-          <h1 className="account__welcome">Привет, {currentUser.name}!</h1>
-
+          <h3 className="account__welcome">Привет, {currentUser.name}!</h3>
           <form
             className="account__form"
             name="account"
@@ -48,7 +48,6 @@ function Account({ isLoading, signOut, onUpdateUser }) {
           >
             <label className="account__field">
               <span className="account__label">Имя</span>
-
               <input
                 className="account__input"
                 type="text"
@@ -65,7 +64,6 @@ function Account({ isLoading, signOut, onUpdateUser }) {
               />
               <span className="account__error">{errorMessages.name}</span>
             </label>
-
             <label className="account__field">
               <span className="account__label">E-mail</span>
               <input
@@ -84,7 +82,6 @@ function Account({ isLoading, signOut, onUpdateUser }) {
               />
               <span className="account__error">{errorMessages.email}</span>
             </label>
-
             <button
               type="submit"
               disabled={!isValid ? true : false}
@@ -96,7 +93,6 @@ function Account({ isLoading, signOut, onUpdateUser }) {
             >
               Редактировать
             </button>
-
             <button
               className="account__logout hover-button"
               type="button"

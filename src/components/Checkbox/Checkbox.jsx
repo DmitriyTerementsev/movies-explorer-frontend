@@ -1,10 +1,10 @@
-function FilterCheckbox({ onfilterMoviesFilms, isShortMovies }) {
+function FilterCheckbox({ onFilterMoviesFilms, isShortMovies }) {
   return (
     <div className="search__toggle">
       <input
         className="search__checkbox"
         type="checkbox"
-        onChange={onfilterMoviesFilms}
+        onChange={onFilterMoviesFilms}
         checked={isShortMovies}
       ></input>
       <span className="search__toggle-title">Короткометражки</span>

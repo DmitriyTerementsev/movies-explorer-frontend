@@ -19,8 +19,7 @@ function Form({
         <Link to="/" className="form__link">
           <img className="form__logo" src={headerLogo} alt="Logo"></img>
         </Link>
-        <h1 className="form__title"> {welcome} </h1>
-
+        <h3 className="form__title"> {welcome} </h3>
         <form
           className="form__inputs"
           name={`${name}-form`}
@@ -29,7 +28,6 @@ function Form({
           noValidate
         >
           {children}
-
           <button
             type="submit"
             disabled={isDisabled ? true : false}

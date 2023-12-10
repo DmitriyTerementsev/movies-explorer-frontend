@@ -8,7 +8,7 @@ import Search from "../Search/Search";
 
 function SavedMovies({ savedMovies, onDeleteCard }) {
   const [filteredMovies, setFilteredMovies] = useState(savedMovies);
-  const [isShortMovies, setisShortMovies] = useState(false);
+  const [isShortMovies, setIsShortMovies] = useState(false);
   const [isNotFound, setIsNotFound] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -17,7 +17,7 @@ function SavedMovies({ savedMovies, onDeleteCard }) {
   }
 
   function handleShortFilterCheckbox() {
-    setisShortMovies(!isShortMovies);
+    setIsShortMovies(!isShortMovies);
   }
 
   useEffect(() => {

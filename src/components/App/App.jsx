@@ -27,7 +27,7 @@ function App() {
   const navigate = useNavigate();
   const path = location.pathname;
   const [currentUser, setCurrentUser] = useState({});
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false);
   const [savedMovies, setSavedMovies] = useState([]);
   const [isInfoPopupOpen, setInfoPopupOpen] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -48,7 +48,7 @@ function App() {
         .then((res) => {
           if (res) {
             localStorage.removeItem("allMovies");
-            setIsLoggedIn(true);
+            setLoggedIn(true);
           }
           navigate(path);
         })
@@ -59,7 +59,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    if (isLoggedIn) {
+    if (loggedIn) {
       MainApi.getUserInfo()
         .then((profileInfo) => {
           setCurrentUser(profileInfo);
@@ -76,7 +76,7 @@ function App() {
           console.log(err);
         });
     }
-  }, [isLoggedIn]);
+  }, [loggedIn]);
 
   function handleRegister({ name, email, password }) {
     MainApi.register(name, email, password)
@@ -101,7 +101,7 @@ function App() {
           setIsSuccess(true);
           localStorage.setItem("jwt", res.token);
           navigate("/movies", { replace: true });
-          setIsLoggedIn(true);
+          setLoggedIn(true);
         }
       })
       .catch((err) => {
@@ -125,7 +125,6 @@ function App() {
       .catch((err) => {
         setInfoPopupUpdateOpen(true);
         setIsUpdate(false);
-        console.log(err);
         errorHandler(err);
       })
       .finally(() => {
@@ -140,7 +139,6 @@ function App() {
       })
       .catch((err) => {
         setIsSuccess(false);
-        console.log(err);
         errorHandler(err);
       });
   }
@@ -154,7 +152,6 @@ function App() {
       })
       .catch((err) => {
         setIsSuccess(false);
-        console.log(err);
         errorHandler(err);
       });
   }
@@ -166,19 +163,19 @@ function App() {
   }
 
   const handleSignOut = () => {
-    setIsLoggedIn(false);
+    setLoggedIn(false);
     localStorage.clear();
     navigate("/");
   };
 
-  function closeAllPopUps() {
+  function closeAllPopup() {
     setInfoPopupOpen(false);
     setInfoPopupUpdateOpen(false);
   }
 
   function closeByOverlay(event) {
     if (event.target === event.currentTarget) {
-      closeAllPopUps();
+      closeAllPopup();
     }
   }
 
@@ -186,7 +183,7 @@ function App() {
   useEffect(() => {
     function closeByEscape(evt) {
       if (evt.key === "Escape") {
-        closeAllPopUps();
+        closeAllPopup();
       }
     }
 
@@ -206,7 +203,7 @@ function App() {
           ""
         ) : (
           <Header
-            isLoggedIn={isLoggedIn}
+            loggedIn={loggedIn}
             isActiveBurger={isActiveBurger}
             handleClickBurger={handleClickBurger}
           />
@@ -217,7 +214,7 @@ function App() {
           <Route
             path={"/signin"}
             element={
-              isLoggedIn ? (
+              loggedIn ? (
                 <Navigate to="/movies" replace />
               ) : (
                 <Login onLogin={handleLogin} isLoading={isLoading} />
@@ -228,7 +225,7 @@ function App() {
           <Route
             path={"/signup"}
             element={
-              isLoggedIn ? (
+              loggedIn ? (
                 <Navigate to="/movies" replace />
               ) : (
                 <Registration
@@ -245,7 +242,7 @@ function App() {
               <ProtectedRoute
                 path="/movies"
                 component={SectionFilms}
-                loggedIn={isLoggedIn}
+                loggedIn={loggedIn}
                 savedMovies={savedMovies}
                 handleLikeFilm={handleCardLike}
                 onDeleteCard={handleCardDelete}
@@ -259,7 +256,7 @@ function App() {
             element={
               <ProtectedRoute
                 path="/saved-movies"
-                loggedIn={isLoggedIn}
+                loggedIn={loggedIn}
                 savedMovies={savedMovies}
                 onDeleteCard={handleCardDelete}
                 component={SavedFilms}
@@ -275,7 +272,7 @@ function App() {
                 isLoading={isLoading}
                 signOut={handleSignOut}
                 onUpdateUser={handleUpdateProfile}
-                loggedIn={isLoggedIn}
+                loggedIn={loggedIn}
                 component={Account}
               />
             }
@@ -286,14 +283,14 @@ function App() {
 
         <InfoPopup
           isOpen={isInfoPopupOpen}
-          onClose={closeAllPopUps}
+          onClose={closeAllPopup}
           isSuccess={isSuccess}
           onCloseOverlay={closeByOverlay}
         />
 
         <InfoPopupUpdate
           isOpen={isInfoPopupUpdateOpen}
-          onClose={closeAllPopUps}
+          onClose={closeAllPopup}
           isUpdate={isUpdate}
           onCloseOverlay={closeByOverlay}
         />

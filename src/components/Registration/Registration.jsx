@@ -1,14 +1,13 @@
-import "../Form/Form.css";
 import Form from "../Form/Form";
 import useForm from "../../hooks/useForm";
 import { EMAIL_REGEX } from "../../utils/constants";
 
-function Registration({ onregistration, isLoading }) {
+function Registration({ onRegistration, isLoading }) {
   const { inputValues, errorMessages, handleChange, isValid } = useForm();
 
   function submitUserInfo(event) {
     event.preventDefault();
-    onregistration({
+    onRegistration({
       name: inputValues.name,
       email: inputValues.email,
       password: inputValues.password,

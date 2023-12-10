@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import Film from "../Film/Film";
 import SearchError from "../SearchError/SearchError";
@@ -28,7 +28,7 @@ function MoviesCardList({
   const [shownMovies, setShownMovies] = useState(0);
   const { pathname } = useLocation();
 
-  function calcMoviesWidht() {
+  function calcMoviesWidth() {
     const display = window.innerWidth;
 
     if (display > BREAKPOINT_DESK) {
@@ -41,23 +41,19 @@ function MoviesCardList({
   }
 
   useEffect(() => {
-    calcMoviesWidht();
+    calcMoviesWidth();
   }, [cards]);
 
   useEffect(() => {
     let resizeTimeout;
-
     function handleResize() {
       clearTimeout(resizeTimeout);
       resizeTimeout = setTimeout(() => {
-        calcMoviesWidht();
+        calcMoviesWidth();
       }, 500);
     }
-
-    calcMoviesWidht();
-
+    calcMoviesWidth();
     window.addEventListener("resize", handleResize);
-
     return () => {
       clearTimeout(resizeTimeout);
       window.removeEventListener("resize", handleResize);
@@ -66,7 +62,6 @@ function MoviesCardList({
 
   function addShownMovies() {
     const display = window.innerWidth;
-
     if (display > BREAKPOINT_DESK) {
       setShownMovies(shownMovies + NUMBER_MOVIES_DESK);
     } else if (display > BREAKPOINT_TABL) {
