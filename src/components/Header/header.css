@@ -264,6 +264,14 @@
   .header__links {
     display: none;
   }
+
+  .header__profile{
+    display: none;
+  }
+
+  .header__profile_active_burger{
+    display: flex;
+  }
 }
 
 @media screen and (max-width: 767px) {

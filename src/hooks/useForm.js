@@ -1,47 +1,47 @@
-import React, {useState, useCallback} from "react";
+import { useCallback, useState } from "react";
 
-export function useFormWithValidation() {
+const useForm = (initialValues = {}) => {
+  const [inputValues, setInputValues] = useState(initialValues);
+  const [errorMessages, setErrorMessages] = useState({});
+  const [isValid, setIsValid] = useState(false);
 
-  const[errorMessage, setErrorMessage] = useState({
-  });
+  const handleChange = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
 
-  const [formValue, setFormValue] = useState({
-    name: '',
-    email: '',
-    password: '',
-    search: ''
-  })
+    setInputValues({ ...inputValues, [name]: value });
 
-  const[isValid, setIsValid] = useState(false);
-
-  const handleChange = (e) => {
-    const input = e.target;
-    const value = input.value;
-    const name = input.name;
-
-    setFormValue({
-      ...formValue,
-      [name]: value
+    setErrorMessages({
+      ...errorMessages,
+      [name]: event.target.validationMessage,
     });
-    setErrorMessage({
-      ...errorMessage,
-      [name]: input.validationMessage
-    });
-    setIsValid(input.closest("form").checkValidity());
-  }
+
+    setIsValid(event.target.closest("#form").checkValidity());
+  };
 
   const resetForm = useCallback(
-  (
-    newValue = {},
-    newErrorMessage = {},
-    newIsValid = false
-    ) => {
-      setFormValue(newValue);
-      setErrorMessage(newErrorMessage);
-      setIsValid(newIsValid);
+    (newValues = {}, newErrors = {}, newisValid = false) => {
+      setInputValues(newValues);
+      setErrorMessages(newErrors);
+      setIsValid(newisValid);
     },
-    [setFormValue, setErrorMessage, setIsValid]
-  )
+    [setInputValues, setErrorMessages, setIsValid]
+  );
 
-  return { formValue, handleChange, resetForm, errorMessage, isValid, setFormValue };
-}
+
+
+  return {
+    inputValues,
+    errorMessages,
+    isValid,
+    handleChange,
+    resetForm,
+    setInputValues,
+  };
+};
+
+export default useForm;
+
+
+
+

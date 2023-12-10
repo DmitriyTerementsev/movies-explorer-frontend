@@ -2,10 +2,8 @@ import { Link } from "react-router-dom";
 import headerLogo from "../../images/header__logo.svg";
 import headerProfile from "../../images/icon__COLOR_icon-main.svg";
 import { useLocation } from "react-router-dom";
-import closeIcon from "../../images/close.svg";
-import burgerIcon from "../../images/burger.svg";
 
-function Header({ handleClickBurger, isActiveBurger, loggedIn }) {
+function Header({ handleClickBurger, isActiveBurger, isLoggedIn }) {
   const mainRoute = useLocation().pathname === "/";
 
   return (
@@ -17,26 +15,28 @@ function Header({ handleClickBurger, isActiveBurger, loggedIn }) {
 
         <div
           className={
-            loggedIn ? "header__links" : "header__links header__links_inactive"
+            isLoggedIn
+              ? "header__links"
+              : "header__links header__links_inactive"
           }
         >
-          <Link to="/films" className="header__link">
+          <Link to="/movies" className="header__link">
             Фильмы
           </Link>
 
-          <Link to="/saved-films" className="header__link">
+          <Link to="/saved-movies" className="header__link">
             Сохранённые фильмы
           </Link>
         </div>
         <div
           className={
-            loggedIn ? "header__auth" : "header__auth header__auth_active"
+            isLoggedIn ? "header__auth header__auth_active" : "header__auth "
           }
         >
           <Link
             to="/profile"
             className={
-              loggedIn
+              isLoggedIn
                 ? "header__profile header__profile_active"
                 : "header__profile"
             }
@@ -53,7 +53,7 @@ function Header({ handleClickBurger, isActiveBurger, loggedIn }) {
           <Link
             to="/signup"
             className={
-              mainRoute && !loggedIn
+              mainRoute && !isLoggedIn
                 ? "header__register header__register_active"
                 : "header__register"
             }
@@ -63,7 +63,7 @@ function Header({ handleClickBurger, isActiveBurger, loggedIn }) {
           <Link
             to="/signin"
             className={
-              mainRoute && !loggedIn
+              mainRoute && !isLoggedIn
                 ? "header__button header__button_active"
                 : "header__button"
             }
@@ -73,7 +73,7 @@ function Header({ handleClickBurger, isActiveBurger, loggedIn }) {
         </div>
         <button
           className={
-            loggedIn
+            isLoggedIn
               ? "header__burger"
               : "header__burger header__burger_inactive"
           }

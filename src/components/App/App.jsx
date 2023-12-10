@@ -16,47 +16,25 @@ import Registration from "../Registration/Registration.jsx";
 import Login from "../Login/Login.jsx";
 import NotFoundPage from "../NotFoundPage/NotFoundPage.jsx";
 import * as MainApi from "../../utils/MainApi";
-import * as MoviesApi from "../../utils/MoviesApi.js";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute.jsx";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext.js";
+import Preloader from "../Preloader/Preloader.jsx";
+import InfoPopup from "../InfoPopup/InfoPopup.jsx";
+import InfoPopupUpdate from "../InfoPopupUpdate/InfoPopupUpdate.jsx";
 
 function App() {
-  const [loggedIn, setLoggedIn] = useState(false);
-  const [currentUser, setCurrentUser] = useState(null);
-  const [isActiveBurger, setIsActiveBurger] = useState(false);
-
-  const [isEditing, setIsEditing] = useState(false);
-  const [isSending, setIsSending] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const path = location.pathname;
+  const [currentUser, setCurrentUser] = useState({});
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [savedMovies, setSavedMovies] = useState([]);
+  const [isInfoPopupOpen, setInfoPopupOpen] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
-  const[isError, setIsError] = useState(false);
-  const [errorType, setErrorType] = useState("");
-
-  const routes = {
-    main: "/",
-    movies: "/films",
-    savedMovies: "/saved-films",
-    profile: "/profile",
-  };
-
-  function ShowHeader() {
-    const route = useLocation().pathname;
-    const showElement =
-      route === routes.main ||
-      route === routes.movies ||
-      route === routes.savedMovies ||
-      route === routes.profile;
-    return showElement;
-  }
-
-  function ShowFooter() {
-    const route = useLocation().pathname;
-    const showElement =
-      route === routes.main ||
-      route === routes.movies ||
-      route === routes.savedMovies;
-    return showElement;
-  }
-
+  const [isInfoPopupUpdateOpen, setInfoPopupUpdateOpen] = useState(false);
+  const [isUpdate, setIsUpdate] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isActiveBurger, setIsActiveBurger] = useState(false);
   function handleClickBurger() {
     isActiveBurger === false
       ? setIsActiveBurger(true)
@@ -64,161 +42,271 @@ function App() {
   }
 
   useEffect(() => {
+    const jwt = localStorage.getItem("jwt");
+    if (jwt) {
+      MainApi.getContent(jwt)
+        .then((res) => {
+          if (res) {
+            localStorage.removeItem("allMovies");
+            setIsLoggedIn(true);
+          }
+          navigate(path);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, []);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      MainApi.getUserInfo()
+        .then((profileInfo) => {
+          setCurrentUser(profileInfo);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+
+      MainApi.getMovies()
+        .then((cardsData) => {
+          setSavedMovies(cardsData.reverse());
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [isLoggedIn]);
+
+  function handleRegister({ name, email, password }) {
+    MainApi.register(name, email, password)
+      .then(() => {
+        setInfoPopupOpen(true);
+        setIsSuccess(true);
+        handleLogin({ email, password });
+      })
+      .catch((err) => {
+        setInfoPopupOpen(true);
+        setIsSuccess(false);
+        console.log(err);
+      });
+  }
+
+  function handleLogin({ email, password }) {
+    setIsLoading(true);
+    MainApi.login(email, password)
+      .then((res) => {
+        if (res) {
+          setInfoPopupOpen(true);
+          setIsSuccess(true);
+          localStorage.setItem("jwt", res.token);
+          navigate("/movies", { replace: true });
+          setIsLoggedIn(true);
+        }
+      })
+      .catch((err) => {
+        setInfoPopupOpen(true);
+        setIsSuccess(false);
+        console.log(err);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }
+
+  function handleUpdateProfile(newUserInfo) {
+    setIsLoading(true);
+    MainApi.updateProfileUserInfo(newUserInfo)
+      .then((data) => {
+        setInfoPopupUpdateOpen(true);
+        setIsUpdate(true);
+        setCurrentUser(data);
+      })
+      .catch((err) => {
+        setInfoPopupUpdateOpen(true);
+        setIsUpdate(false);
+        console.log(err);
+        errorHandler(err);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }
+
+  function handleCardLike(card) {
+    MainApi.addCard(card)
+      .then((newMovie) => {
+        setSavedMovies([newMovie, ...savedMovies]);
+      })
+      .catch((err) => {
+        setIsSuccess(false);
+        console.log(err);
+        errorHandler(err);
+      });
+  }
+
+  function handleCardDelete(card) {
+    MainApi.deleteCard(card._id)
+      .then(() => {
+        setSavedMovies((state) =>
+          state.filter((item) => item._id !== card._id)
+        );
+      })
+      .catch((err) => {
+        setIsSuccess(false);
+        console.log(err);
+        errorHandler(err);
+      });
+  }
+
+  function errorHandler(err) {
+    if (err === "Error: 401") {
+      handleSignOut();
+    }
+  }
+
+  const handleSignOut = () => {
+    setIsLoggedIn(false);
+    localStorage.clear();
+    navigate("/");
+  };
+
+  function closeAllPopUps() {
+    setInfoPopupOpen(false);
+    setInfoPopupUpdateOpen(false);
+  }
+
+  function closeByOverlay(event) {
+    if (event.target === event.currentTarget) {
+      closeAllPopUps();
+    }
+  }
+
+  const isOpen = setInfoPopupOpen || setInfoPopupOpen;
+  useEffect(() => {
     function closeByEscape(evt) {
       if (evt.key === "Escape") {
-        setIsActiveBurger(false);
+        closeAllPopUps();
       }
     }
-    if (isActiveBurger === true) {
+
+    if (isOpen) {
       document.addEventListener("keydown", closeByEscape);
       return () => {
         document.removeEventListener("keydown", closeByEscape);
       };
     }
-  }, [isActiveBurger]);
-
-  function handleRegister(name, email, password) {
-    MainApi.register({ name, email, password })
-      .then(() => handleLogin(email, password))
-      .catch((err) => console.log(err));
-  }
-
-  function handleLogin(email, password) {
-    MainApi.login({ email, password })
-      .then((res) => {
-        setLoggedIn(true);
-        localStorage.setItem("token", res.token);
-      })
-      .catch((err) => console.log(err));
-  }
-
-  const token = localStorage.getItem("token");
-  useEffect(() => {
-    if (token) {
-      MainApi.checkToken()
-        .then((userInfo) => {
-          setLoggedIn(true);
-          setCurrentUser(userInfo);
-        })
-        .catch((err) => {
-          console.log(err);
-          localStorage.removeItem("token");
-        });
-    } else {
-      localStorage.removeItem("token");
-    }
-  }, []);
-
-  function handleSignOut() {
-    localStorage.removeItem("token");
-    setLoggedIn(false);
-  }
-
-  const handleEditProfile = (data) => {
-    setIsSending(true);
-    const token = localStorage.getItem("token");
-    MainApi.editProfile(data, token)
-      .then((user) => {
-        setCurrentUser(user);
-        setIsSuccess(true);
-        setIsEditing(false);
-        setIsSending(false);
-      })
-      .catch((error) => {
-        setIsSending(false);
-        setIsError(true);
-        console.log(error);
-        if (error === 409) {
-          setErrorType("conflict");
-        } else if (error === 500) {
-          setErrorType("server");
-        } else {
-          setErrorType("edit");
-        }
-      });
-  };
-
-  const handleEditClick = () => {
-    setIsEditing(true);
-    setIsError(false);
-  };
+  }, [isOpen]);
 
   return (
-    <div className="root">
-      <CurrentUserContext.Provider value={currentUser}>
-        {ShowHeader() && (
+    <CurrentUserContext.Provider value={currentUser}>
+      {isLoading && <Preloader />}
+      <div className="app">
+        {location.pathname === "/signin" || location.pathname === "/signup" ? (
+          ""
+        ) : (
           <Header
-            loggedIn={loggedIn}
-            handleClickBurger={handleClickBurger}
+            isLoggedIn={isLoggedIn}
             isActiveBurger={isActiveBurger}
+            handleClickBurger={handleClickBurger}
           />
         )}
+
         <Routes>
           <Route path="/" element={<Main />} />
-
           <Route
-            path="/films"
+            path={"/signin"}
             element={
-              <ProtectedRoute loggedIn={loggedIn} children={<SectionFilms />} />
+              isLoggedIn ? (
+                <Navigate to="/movies" replace />
+              ) : (
+                <Login onLogin={handleLogin} isLoading={isLoading} />
+              )
             }
           />
 
           <Route
-            path="/saved-films"
+            path={"/signup"}
             element={
-              <ProtectedRoute loggedIn={loggedIn} children={<SavedFilms />} />
+              isLoggedIn ? (
+                <Navigate to="/movies" replace />
+              ) : (
+                <Registration
+                  onRegister={handleRegister}
+                  isLoading={isLoading}
+                />
+              )
             }
           />
 
           <Route
-            path="/profile"
+            path={"/movies"}
             element={
               <ProtectedRoute
-                loggedIn={loggedIn}
-                children={
-                  <Account
-                    handleSignOut={handleSignOut}
-                    onEditProfile={handleEditProfile}
-                    errorType={errorType}
-                    isError={isError}
-                    isSuccess={isSuccess}
-                    isEditing={isEditing}
-                    onEditClick={handleEditClick}
-                    setIsError={setIsError}
-                    isSending={isSending}
-                  />
-                }
+                path="/movies"
+                component={SectionFilms}
+                loggedIn={isLoggedIn}
+                savedMovies={savedMovies}
+                handleLikeFilm={handleCardLike}
+                onDeleteCard={handleCardDelete}
+                isLoading={isLoading}
               />
             }
           />
 
           <Route
-            path="/signup"
+            path={"/saved-movies"}
             element={
               <ProtectedRoute
-                loggedIn={!loggedIn}
-                children={<Registration onRegister={handleRegister} />}
+                path="/saved-movies"
+                loggedIn={isLoggedIn}
+                savedMovies={savedMovies}
+                onDeleteCard={handleCardDelete}
+                component={SavedFilms}
               />
             }
           />
 
           <Route
-            path="/signin"
+            path={"/profile"}
             element={
               <ProtectedRoute
-                loggedIn={!loggedIn}
-                children={<Login onLogin={handleLogin} />}
+                path="/profile"
+                isLoading={isLoading}
+                signOut={handleSignOut}
+                onUpdateUser={handleUpdateProfile}
+                loggedIn={isLoggedIn}
+                component={Account}
               />
             }
           />
 
-          <Route path="/not-found" element={<NotFoundPage />} />
-
-          <Route path="*" element={<Navigate to="/not-found" replace />} />
+          <Route path="*" element={<NotFoundPage />}></Route>
         </Routes>
-        {ShowFooter() && <Footer />}
-      </CurrentUserContext.Provider>
-    </div>
+
+        <InfoPopup
+          isOpen={isInfoPopupOpen}
+          onClose={closeAllPopUps}
+          isSuccess={isSuccess}
+          onCloseOverlay={closeByOverlay}
+        />
+
+        <InfoPopupUpdate
+          isOpen={isInfoPopupUpdateOpen}
+          onClose={closeAllPopUps}
+          isUpdate={isUpdate}
+          onCloseOverlay={closeByOverlay}
+        />
+
+        {location.pathname === "/" ||
+        location.pathname === "/movies" ||
+        location.pathname === "/saved-movies" ? (
+          <Footer />
+        ) : (
+          <></>
+        )}
+      </div>
+    </CurrentUserContext.Provider>
   );
 }
 

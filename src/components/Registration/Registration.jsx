@@ -1,63 +1,86 @@
-import logo from "../../images/header__logo.svg";
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import "../Form/Form.css";
+import Form from "../Form/Form";
+import useForm from "../../hooks/useForm";
+import { EMAIL_REGEX } from "../../utils/constants";
 
-function Registration({ onRegister }) {
-  const [formValue, setFormValue] = useState({
-    name: "",
-    email: "",
-    password: "",
-  });
+function Registration({ onregistration, isLoading }) {
+  const { inputValues, errorMessages, handleChange, isValid } = useForm();
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    const { name, email, password } = formValue;
-    if (!email || !password || !name) {
-      return;
-    }
-    onRegister(name, email, password);
+  function submitUserInfo(event) {
+    event.preventDefault();
+    onregistration({
+      name: inputValues.name,
+      email: inputValues.email,
+      password: inputValues.password,
+    });
   }
 
   return (
-    <div className="register">
-      <Link to="/">
-        <img src={logo} alt="Лого" className="register__logo" />
-      </Link>
-      <h3 className="register__title">Добро пожаловать!</h3>
-      <form action="form" className="register__form" onSubmit={handleSubmit}>
-        <p className="register__input-name">Имя</p>
-        <input
-          type="text"
-          className="register__input"
-          required
-          value={formValue.name}
-          onChange={(e) => setFormValue({...formValue, name: e.target.value})}
-        />
-        <p className="register__input-name">E-mail</p>
-        <input
-          type="email"
-          className="register__input"
-          required
-          value={formValue.email}
-          onChange={(e) => setFormValue({...formValue, email: e.target.value})}
-        />
-        <p className="register__input-name">Пароль</p>
-        <input
-          type="password"
-          className="register__input"
-          required
-          value={formValue.password}
-          onChange={(e) => setFormValue({...formValue, password: e.target.value})}
-        />
-        <button className="register__button">Зарегистрироваться</button>
-      </form>
-      <p className="register__text">
-        Уже зарегистрированы?
-        <Link to="/signin" className="register__accent">
-          Войти
-        </Link>
-      </p>
-    </div>
+    <>
+      <main>
+        <Form
+          name="registration"
+          welcome="Добро пожаловать!"
+          button="Зарегистрироваться"
+          question="Уже зарегистрированы?"
+          path="/signin"
+          link="Войти"
+          onSubmit={submitUserInfo}
+          isDisabledButton={!isValid}
+          isLoading={isLoading}
+        >
+          <label className="form__item">
+            Имя
+            <input
+              name="name"
+              className="form__input"
+              type="text"
+              id="name-input"
+              placeholder="Введите имя"
+              minLength="2"
+              maxLength="30"
+              onChange={handleChange}
+              value={inputValues.name || ""}
+              required
+            />
+            <span className="form__input-error">{errorMessages.name}</span>
+          </label>
+
+          <label className="form__item">
+            E-mail
+            <input
+              name="email"
+              className="form__input"
+              type="email"
+              id="email-input"
+              placeholder="Введите email"
+              onChange={handleChange}
+              pattern={EMAIL_REGEX}
+              value={inputValues.email || ""}
+              required
+            />
+            <span className="form__input-error">{errorMessages.email}</span>
+          </label>
+
+          <label className="form__item">
+            Пароль
+            <input
+              name="password"
+              className="form__input"
+              type="password"
+              id="password-input"
+              minLength="2"
+              maxLength="30"
+              placeholder="Введите пароль"
+              onChange={handleChange}
+              value={inputValues.password || ""}
+              required
+            />
+            <span className="form__input-error">{errorMessages.password}</span>
+          </label>
+        </Form>
+      </main>
+    </>
   );
 }
 

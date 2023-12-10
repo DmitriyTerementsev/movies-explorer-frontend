@@ -1,139 +1,113 @@
-import { useContext, useEffect } from "react";
-import InfoTooltip from "../InfoToolTip/InfoToolTip";
+import { useEffect, useContext, useState } from "react";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
-import { useFormWithValidation } from "../../hooks/useForm";
-import { emailRegex } from "../../utils/constants";
+import { EMAIL_REGEX, NAME_REGEX } from "../../utils/constants";
+import useForm from "../../hooks/useForm";
 
-function Account({
-  onEditProfile,
-  onSignOut,
-  errorType,
-  isError,
-  isSuccess,
-  isEditing,
-  onEditClick,
-  setIsError,
-  isSending,
-}) {
+function Account({ isLoading, signOut, onUpdateUser }) {
   const currentUser = useContext(CurrentUserContext);
-
-  const { handleChange, formValue, errorMessage, isValid, resetForm } =
-    useFormWithValidation();
-
-  const isDataChanged =
-    formValue.name !== currentUser.name ||
-    formValue.email !== currentUser.email;
-
-  const handleInputChange = (e) => {
-    handleChange(e);
-    setIsError(false);
-  };
-
+  const { inputValues, errorMessages, handleChange, isValid, resetForm } =
+    useForm();
+  const [isLastValues, setIsLastValues] = useState(false);
   useEffect(() => {
-    resetForm({
-      name: currentUser.name,
-      email: currentUser.email,
-    });
-    setIsError(false);
-  }, [resetForm, currentUser, isEditing, setIsError]);
+    if (currentUser) {
+      resetForm(currentUser);
+    }
+  }, [currentUser, resetForm]);
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    onEditProfile({
-      name: formValue.name,
-      email: formValue.email,
+  function submitUserInfo(event) {
+    event.preventDefault();
+    onUpdateUser({
+      name: inputValues.name,
+      email: inputValues.email,
     });
   }
 
-  return (
-    <main className="account section">
-      <h3 className="account__title">{`Привет, ${currentUser.name}!`}</h3>
-      <form
-        className="account__info"
-        name="account"
-        onSubmit={handleSubmit}
-        disabled={isSending}
-      >
-        <div className="account__info-line">
-          <div className="account__input-group">
-            <p className="account__input-title">Имя</p>
+  useEffect(() => {
+    if (
+      currentUser.name === inputValues.name &&
+      currentUser.email === inputValues.email
+    ) {
+      setIsLastValues(true);
+    } else {
+      setIsLastValues(false);
+    }
+  }, [inputValues]);
 
-            {isEditing ? (
+  return (
+    <>
+      <main className="account">
+        <div className="account__container">
+          <h1 className="account__welcome">Привет, {currentUser.name}!</h1>
+
+          <form
+            className="account__form"
+            name="account"
+            id="form"
+            onSubmit={submitUserInfo}
+            noValidate
+          >
+            <label className="account__field">
+              <span className="account__label">Имя</span>
+
               <input
-                className="account__input account__input_purpose_name"
+                className="account__input"
                 type="text"
                 name="name"
-                id="name"
-                value={formValue.name || ""}
-                onChange={handleInputChange}
-                placeholder="Введите имя"
+                id="name-input"
+                placeholder="Ваше имя"
                 minLength="2"
-                maxLength="20"
+                maxLength="35"
                 required
+                onChange={handleChange}
+                pattern={NAME_REGEX}
+                value={inputValues.name || ""}
+                autoComplete="off"
               />
-            ) : (
-              <p className="account__caption account__caption_purpose_name">
-                {currentUser.name}
-              </p>
-            )}
-          </div>
-          <span className="account__input-error">
-            {errorMessage.name || ""}
-          </span>
-        </div>
-        <div className="account__info-line">
-          <div className="account__input-group">
-            <p className="account__input-title">E-mail</p>
-            {isEditing ? (
+              <span className="account__error">{errorMessages.name}</span>
+            </label>
+
+            <label className="account__field">
+              <span className="account__label">E-mail</span>
               <input
-                className="account__input account__input_purpose_email"
+                className="account__input"
                 type="email"
                 name="email"
-                id="email"
-                value={formValue.email || ""}
-                onChange={handleInputChange}
-                pattern={emailRegex}
-                placeholder="Введите email"
+                id="email-input"
+                placeholder="E-mail"
+                minLength="2"
+                maxLength="35"
                 required
+                onChange={handleChange}
+                pattern={EMAIL_REGEX}
+                value={inputValues.email || ""}
+                autoComplete="off"
               />
-            ) : (
-              <p className="account__caption account__caption_purpose_email">
-                {currentUser.email}
-              </p>
-            )}
-          </div>
-          <span className="account__input-error">
-            {errorMessage.email || ""}
-          </span>
-        </div>
-        {isEditing ? (
-          <>
-            {isError && <InfoTooltip errorType={isError ? errorType : ""} />}
+              <span className="account__error">{errorMessages.email}</span>
+            </label>
 
             <button
-              className="account__save-button"
-              disabled={!isValid || isError || !isDataChanged || isSending}
+              type="submit"
+              disabled={!isValid ? true : false}
+              className={
+                !isValid || isLoading || isLastValues
+                  ? "account__button-save form__button-save_inactive"
+                  : "account__button-save"
+              }
             >
-              Сохранить
-            </button>
-          </>
-        ) : (
-          <>
-            {!isError && isSuccess && (
-              <p className="account__success-tooltip">
-                Профиль успешно обновлен!
-              </p>
-            )}
-            <button onClick={onEditClick} className="account__edit-button">
               Редактировать
             </button>
-            <button onClick={onSignOut} className="account__sign-out-button">
+
+            <button
+              className="account__logout hover-button"
+              type="button"
+              onClick={signOut}
+            >
               Выйти из аккаунта
             </button>
-          </>
-        )}
-      </form>
-    </main>
+          </form>
+        </div>
+      </main>
+    </>
   );
 }
 

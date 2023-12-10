@@ -1,56 +1,60 @@
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import FilterCheckbox from "../Checkbox/Checkbox";
 
-function Search({ onSearch, query, setQuery, isChecked, onChecked }) {
-  const [isActive, setActive] = useState("false");
-  const handleToggle = () => {
-    setActive(!isActive);
-  };
-  const [isEmptyQuery, setIsEmptyQuery] = useState("");
+function SearchForm({ searchFilterMovie, onfilterMoviesFilms, isShortMovies }) {
+  const [isQueryError, setIsQueryError] = useState(false);
+  const [query, setQuery] = useState("");
+  const location = useLocation();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (query.trim() === "") {
-      setIsEmptyQuery("Нужно ввести ключевое слово");
-    } else {
-      onSearch(query);
-      setIsEmptyQuery("");
+  useEffect(() => {
+    if (
+      location.pathname === "/movies" && localStorage.getItem("movieSearch")
+    ) {
+      const localQuery = localStorage.getItem("movieSearch");
+      setQuery(localQuery);
     }
-  };
+  }, [location]);
 
-  const handleChange = (e) => {
-    setQuery(e.target.value);
-  };
+  function submitUserInfo(e) {
+    e.preventDefault();
+    if (query.trim().length === 0) {
+      setIsQueryError(true);
+    } else {
+      setIsQueryError(false);
+      searchFilterMovie(query);
+    }
+  }
+
+  function handleChangeQuery(event) {
+    setQuery(event.target.value);
+  }
 
   return (
-    <div className="search">
-      <form className="search__form" onSubmit={handleSubmit}>
+    <form className="search" id="form" onSubmit={submitUserInfo}>
+      <div className="search__container">
         <input
-          type="text"
           className="search__input"
-          placeholder="Фильм"
-          minLength="2"
-          maxLength="40"
-          required
-          onChange={handleChange}
-          value={query}
+          name="query"
+          id="search-input"
+          type="text"
+          placeholder="Фильмы"
+          onChange={handleChangeQuery}
+          value={query || ""}
         />
-        <button className="search__button"></button>
-        <div
-          className="search__switch"
-        >
-          <button
-            type="button"
-            className={isActive ? "switch" : "switch switch_active"}
-            onClick={handleToggle}
-          >
-            <span className="search__switch-icon"></span>
-          </button>
-          <p className="search__switch-text">Короткометражки</p>
-        </div>
-        <div className="search__line"></div>
-      </form>
-    </div>
+        <button className="search__button" type="submit" />
+      </div>
+
+      <FilterCheckbox
+        isShortMovies={isShortMovies}
+        onfilterMoviesFilms={onfilterMoviesFilms}
+      />
+      {isQueryError && ( <span className="search__form-error">Введите ключевое слово</span>)}
+
+    </form>
   );
 }
 
-export default Search;
+export default SearchForm;
+
+
