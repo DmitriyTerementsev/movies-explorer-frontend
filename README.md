@@ -4,4 +4,4 @@ https://www.figma.com/file/6FMWkB94wE7KTkcCgUXtnC/%D0%94%D0%B8%D0%BF%D0%BB%D0%BE
 
 PR - https://github.com/Alchimik981/movies-explorer-frontend/pull/2
 
-51.250.87.8
+https://movies-trmntsv.nomoredomainsmonster.ru/
