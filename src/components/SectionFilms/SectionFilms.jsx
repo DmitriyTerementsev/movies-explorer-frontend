@@ -92,9 +92,9 @@ function SectionFilms({ handleLikeFilm, onDeleteCard, savedMovies }) {
         setIsNotFound(false);
       }
     } else {
-      setIsNotFound(false);
+      setIsNotFound(true);
     }
-  }, [filteredMovies]);
+  }, [filteredMovies.length]);
 
   return (
     <section className="section-films">

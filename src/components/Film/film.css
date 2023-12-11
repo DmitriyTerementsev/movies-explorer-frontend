@@ -64,7 +64,7 @@
   margin-left: auto;
   height: 30px;
   width: 30px;
-  background: transparent url(../../images/likeinactive.svg) no-repeat;
+  background: transparent url(../../images/likeactive.svg) no-repeat;
   border: none;
   cursor: pointer;
 }

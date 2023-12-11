@@ -10,7 +10,7 @@ import {
   MOBILE_ITEMS_DISP,
   BREAKPOINT_DESK,
   BREAKPOINT_TABL,
-  SIZE_ITEMSTWELVE,
+  SIZE_ITEMSSIXTEEN,
   SIZE_ITEMSEIGHT,
   SIZE_ITEMSFIVE,
 } from "../../utils/constants";
@@ -32,7 +32,7 @@ function MoviesCardList({
     const display = window.innerWidth;
 
     if (display > BREAKPOINT_DESK) {
-      setShownMovies(SIZE_ITEMSTWELVE);
+      setShownMovies(SIZE_ITEMSSIXTEEN);
     } else if (display > BREAKPOINT_TABL) {
       setShownMovies(SIZE_ITEMSEIGHT);
     } else {
@@ -74,7 +74,7 @@ function MoviesCardList({
   function handleSavedMovie(savedMovies, card) {
     return savedMovies.find((savedMovie) => savedMovie.movieId === card.id);
   }
-
+console.log(isNotFound)
   return (
     <section className="films">
       {isLoading && <Preloader />}

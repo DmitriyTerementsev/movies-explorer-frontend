@@ -37,7 +37,7 @@ export const updateProfileUserInfo = (data, token) => {
     },
     body: JSON.stringify({
       name: data.name,
-      email: data.mail,
+      email: data.email,
     }),
   }).then((res) => handleRequest(res));
 };
@@ -94,8 +94,6 @@ export const addCard = (card, token) => {
       movieId: card.id,
       nameRU: card.nameRU,
       nameEN: card.nameEN,
-      name: card.nameRU,
-      link: card.trailerLink,
     }),
   }).then((res) => handleRequest(res));
 };

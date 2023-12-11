@@ -17,8 +17,6 @@ function Film({
   }
 
   function onDelete() {
-    console.log("delete card");
-    console.log(card);
     onDeleteCard(card);
   }
 
