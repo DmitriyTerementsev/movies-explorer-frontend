@@ -1,5 +1,3 @@
-import "../InfoPopup/InfoPopup.css";
-
 function InfoPopupUpdate(props) {
   return (
     <div

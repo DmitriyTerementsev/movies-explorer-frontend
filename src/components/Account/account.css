@@ -174,32 +174,3 @@
   }
 }
 
-@media screen and (max-width: 523px) {
-  .account {
-    padding: 70px 30px 40px;
-  }
-
-  .account__field {
-    grid-template-columns: repeat(2, 120px);
-  }
-
-  .account__form {
-    margin-top: 63px;
-    height: 100%;
-  }
-
-  .account__request-error {
-    margin-top: auto;
-  }
-
-  .account__edit-button {
-    font-size: 12px;
-    line-height: 15px;
-    margin-top: auto;
-  }
-
-  .account__logout {
-    font-size: 12px;
-    line-height: 15px;
-  }
-}

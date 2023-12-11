@@ -64,14 +64,7 @@
   transform: scale(0.9);
 }
 
-@media screen and (max-width: 787px) {
-  .search {
-    margin-top: 80px;
-    padding-bottom: 50px;
-  }
-}
-
-@media screen and (max-width: 523px) {
+@media screen and (max-width: 767px) {
   .search {
     margin-top: 80px;
     padding-bottom: 49px;

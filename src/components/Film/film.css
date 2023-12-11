@@ -93,7 +93,7 @@
   cursor: pointer;
 }
 
-@media screen and (max-width: 787px) {
+@media screen and (max-width: 767px) {
   .film__picture {
     height: 190px;
   }
@@ -108,29 +108,5 @@
 
   .film__duration {
     margin: 7px 0 14px 14px;
-  }
-}
-
-@media screen and (max-width: 523px) {
-  .film {
-    max-height: 237px;
-  }
-
-  .film__picture {
-    height: 168px;
-  }
-
-  .film__header {
-    padding: 7px 10px 0 14px;
-  }
-
-  .film__duration {
-    font-size: 10px;
-    line-height: normal;
-    margin-top: 6px;
-  }
-
-  .film__title {
-    font-size: 12px;
   }
 }

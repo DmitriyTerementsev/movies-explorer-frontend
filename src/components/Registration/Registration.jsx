@@ -2,12 +2,12 @@ import Form from "../Form/Form";
 import useForm from "../../hooks/useForm";
 import { EMAIL_REGEX } from "../../utils/constants";
 
-function Registration({ onRegistration, isLoading }) {
+function Registration({ onRegister, isLoading }) {
   const { inputValues, errorMessages, handleChange, isValid } = useForm();
 
   function submitUserInfo(event) {
     event.preventDefault();
-    onRegistration({
+    onRegister({
       name: inputValues.name,
       email: inputValues.email,
       password: inputValues.password,

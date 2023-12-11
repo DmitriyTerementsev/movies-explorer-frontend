@@ -57,7 +57,7 @@
   transform: translate(16px);
 }
 
-@media screen and (max-width: 523px) {
+@media screen and (max-width: 767px) {
   .search__toggle-title {
     font-size: 11px;
     line-height: 18px;

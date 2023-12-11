@@ -82,12 +82,10 @@ function App() {
     MainApi.register(name, email, password)
       .then(() => {
         setInfoPopupOpen(true);
-        setIsSuccess(true);
         handleLogin({ email, password });
       })
       .catch((err) => {
         setInfoPopupOpen(true);
-        setIsSuccess(false);
         console.log(err);
       });
   }
@@ -98,7 +96,6 @@ function App() {
       .then((res) => {
         if (res) {
           setInfoPopupOpen(true);
-          setIsSuccess(true);
           localStorage.setItem("jwt", res.token);
           navigate("/movies", { replace: true });
           setLoggedIn(true);
@@ -106,7 +103,6 @@ function App() {
       })
       .catch((err) => {
         setInfoPopupOpen(true);
-        setIsSuccess(false);
         console.log(err);
       })
       .finally(() => {
