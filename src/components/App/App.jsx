@@ -59,8 +59,9 @@ function App() {
   }, []);
 
   useEffect(() => {
+    const jwt = localStorage.getItem("jwt");
     if (loggedIn) {
-      MainApi.getUserInfo()
+      MainApi.getUserInfo(jwt)
         .then((profileInfo) => {
           setCurrentUser(profileInfo);
         })
@@ -68,7 +69,7 @@ function App() {
           console.log(err);
         });
 
-      MainApi.getMovies()
+      MainApi.getMovies(jwt)
         .then((cardsData) => {
           setSavedMovies(cardsData.reverse());
         })
@@ -82,10 +83,12 @@ function App() {
     MainApi.register(name, email, password)
       .then(() => {
         setInfoPopupOpen(true);
+        setIsSuccess(true);
         handleLogin({ email, password });
       })
       .catch((err) => {
         setInfoPopupOpen(true);
+        setIsSuccess(false);
         console.log(err);
       });
   }
@@ -96,6 +99,7 @@ function App() {
       .then((res) => {
         if (res) {
           setInfoPopupOpen(true);
+          setIsSuccess(true);
           localStorage.setItem("jwt", res.token);
           navigate("/movies", { replace: true });
           setLoggedIn(true);
@@ -103,6 +107,7 @@ function App() {
       })
       .catch((err) => {
         setInfoPopupOpen(true);
+        setIsSuccess(false);
         console.log(err);
       })
       .finally(() => {
@@ -111,12 +116,14 @@ function App() {
   }
 
   function handleUpdateProfile(newUserInfo) {
+    const jwt = localStorage.getItem("jwt");
     setIsLoading(true);
-    MainApi.updateProfileUserInfo(newUserInfo)
-      .then((data) => {
+    MainApi.updateProfileUserInfo(newUserInfo, jwt)
+      .then((newUserInfo) => {
+        navigate("/movies", { replace: true });
         setInfoPopupUpdateOpen(true);
         setIsUpdate(true);
-        setCurrentUser(data);
+        setCurrentUser(newUserInfo);
       })
       .catch((err) => {
         setInfoPopupUpdateOpen(true);
@@ -129,9 +136,11 @@ function App() {
   }
 
   function handleCardLike(card) {
-    MainApi.addCard(card)
-      .then((newMovie) => {
-        setSavedMovies([newMovie, ...savedMovies]);
+    const jwt = localStorage.getItem("jwt");
+    console.log(card, jwt)
+    MainApi.addCard(card, jwt)
+      .then((card) => {
+        setSavedMovies([card, ...savedMovies]);
       })
       .catch((err) => {
         setIsSuccess(false);
@@ -140,7 +149,8 @@ function App() {
   }
 
   function handleCardDelete(card) {
-    MainApi.deleteCard(card._id)
+    const jwt = localStorage.getItem("jwt");
+    MainApi.deleteCard(card._id, jwt)
       .then(() => {
         setSavedMovies((state) =>
           state.filter((item) => item._id !== card._id)

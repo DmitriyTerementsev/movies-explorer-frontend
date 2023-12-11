@@ -78,7 +78,7 @@ function MoviesCardList({
   return (
     <section className="films">
       {isLoading && <Preloader />}
-      {isNotFound && !isLoading && (
+      {isNotFound && !isLoading &&(
         <SearchError errorText={"Ничего не найдено"} />
       )}
       {isReqError && !isLoading && (

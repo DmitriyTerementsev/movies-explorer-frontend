@@ -26,7 +26,6 @@ function SectionFilms({ handleLikeFilm, onDeleteCard, savedMovies }) {
   }
 
   function searchFilterMovie(query) {
-    console.log(query);
     localStorage.setItem("movieSearch", query);
     localStorage.setItem("shortMovies", isShortMovies);
 

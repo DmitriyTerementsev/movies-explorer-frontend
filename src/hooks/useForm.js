@@ -20,15 +20,13 @@ const useForm = (initialValues = {}) => {
   };
 
   const resetForm = useCallback(
-    (newValues = {}, newErrors = {}, newisValid = false) => {
+    (newValues = {}, newErrors = {}, newIsValid = false) => {
       setInputValues(newValues);
       setErrorMessages(newErrors);
-      setIsValid(newisValid);
+      setIsValid(newIsValid);
     },
     [setInputValues, setErrorMessages, setIsValid]
   );
-
-
 
   return {
     inputValues,
@@ -41,7 +39,3 @@ const useForm = (initialValues = {}) => {
 };
 
 export default useForm;
-
-
-
-

@@ -25,7 +25,7 @@ function Registration({ onRegister, isLoading }) {
           path="/signin"
           link="Войти"
           onSubmit={submitUserInfo}
-          isDisabledButton={!isValid}
+          isDisabledButton={isValid}  
           isLoading={isLoading}
         >
           <label className="form__item">
@@ -68,7 +68,7 @@ function Registration({ onRegister, isLoading }) {
               className="form__input"
               type="password"
               id="password-input"
-              minLength="2"
+              minLength="4"
               maxLength="30"
               placeholder="Введите пароль"
               onChange={handleChange}

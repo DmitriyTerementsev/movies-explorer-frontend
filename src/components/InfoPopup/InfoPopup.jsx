@@ -10,7 +10,7 @@ function InfoPopup(props) {
         {props.isSuccess ? (
           <>
             <p className="popup__signup-title">
-              Вы успешно зарегистрировались!
+              Добро пожаловать!
             </p>
           </>
         ) : (

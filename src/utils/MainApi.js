@@ -18,26 +18,26 @@ export const getContent = (token) => {
   }).then((res) => handleRequest(res));
 };
 
-export const getUserInfo = () => {
+export const getUserInfo = (token) => {
   return fetch(`${BASE_URL}/users/me`, {
     method: "GET",
     headers: {
-      Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
     },
   }).then((res) => handleRequest(res));
 };
 
-export const updateProfileUserInfo = (data) => {
+export const updateProfileUserInfo = (data, token) => {
   return fetch(`${BASE_URL}/users/me`, {
     method: "PATCH",
     headers: {
-      Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
       name: data.name,
-      email: data.email,
+      email: data.mail,
     }),
   }).then((res) => handleRequest(res));
 };
@@ -64,44 +64,47 @@ export const login = (email, password) => {
   }).then((res) => handleRequest(res));
 };
 
-export const getMovies = () => {
+export const getMovies = (token) => {
   return fetch(`${BASE_URL}/movies`, {
     method: "GET",
     headers: {
-      Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
     },
   }).then((res) => handleRequest(res));
 };
 
-export const addCard = (data) => {
+export const addCard = (card, token) => {
+  console.log(card)
   return fetch(`${BASE_URL}/movies`, {
     method: "POST",
     headers: {
-      Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      country: data.country,
-      director: data.director,
-      duration: data.duration,
-      year: data.year,
-      description: data.description,
-      image: `https://api.nomoreparties.co${data.image.url}`,
-      trailerLink: data.trailerLink,
-      thumbnail: `https://api.nomoreparties.co${data.image.formats.thumbnail.url}`,
-      movieId: data.id,
-      nameRU: data.nameRU,
-      nameEN: data.nameEN,
+      country: card.country,
+      director: card.director,
+      duration: card.duration,
+      year: card.year,
+      description: card.description,
+      image: `https://api.nomoreparties.co${card.image.url}`,
+      trailerLink: card.trailerLink,
+      thumbnail: `https://api.nomoreparties.co${card.image.formats.thumbnail.url}`,
+      movieId: card.id,
+      nameRU: card.nameRU,
+      nameEN: card.nameEN,
+      name: card.nameRU,
+      link: card.trailerLink,
     }),
   }).then((res) => handleRequest(res));
 };
 
-export const deleteCard = (cardId) => {
+export const deleteCard = (cardId, token) => {
   return fetch(`${BASE_URL}/movies/${cardId}`, {
     method: "DELETE",
     headers: {
-      Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
     },
   }).then((res) => handleRequest(res));

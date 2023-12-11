@@ -3,6 +3,7 @@ import Form from "../Form/Form";
 import { EMAIL_REGEX } from "../../utils/constants";
 import useForm from "../../hooks/useForm";
 
+
 function Login({ onLogin, isLoading }) {
   const { inputValues, errorMessages, handleChange, isValid } = useForm();
 
@@ -25,7 +26,7 @@ function Login({ onLogin, isLoading }) {
           path="/signup"
           link="Регистрация"
           onSubmit={submitUserInfo}
-          isDisabledButton={!isValid}
+          isDisabledButton={isValid}
           isLoading={isLoading}
           noValidate
         >

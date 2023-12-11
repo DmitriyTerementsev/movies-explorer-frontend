@@ -10,7 +10,7 @@ function Form({
   path,
   link,
   onSubmit,
-  isDisabled,
+  isDisabledButton,
   isLoading,
 }) {
   return (
@@ -30,11 +30,11 @@ function Form({
           {children}
           <button
             type="submit"
-            disabled={isDisabled ? true : false}
+            disabled={isDisabledButton ? false : true}
             className={
-              isDisabled || isLoading
-                ? "form__button-save form__button-save_inactive"
-                : "form__button-save"
+              isDisabledButton || isLoading
+                ? "form__button-save"
+                : "form__button-save form__button-save_inactive"
             }
           >
             {button}
