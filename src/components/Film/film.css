@@ -86,11 +86,16 @@
   background-repeat: no-repeat;
   background-color: transparent;
   cursor: pointer;
+  display: none;
 }
 
 .film__button-delete:hover {
   opacity: 0.6;
   cursor: pointer;
+}
+
+.film:hover .film__button-delete {
+  display: block;
 }
 
 @media screen and (max-width: 767px) {
@@ -108,5 +113,9 @@
 
   .film__duration {
     margin: 7px 0 14px 14px;
+  }
+
+  .film__button-delete{
+    display: block;
   }
 }
