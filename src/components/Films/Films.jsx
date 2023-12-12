@@ -74,7 +74,7 @@ function MoviesCardList({
   function handleSavedMovie(savedMovies, card) {
     return savedMovies.find((savedMovie) => savedMovie.movieId === card.id);
   }
-console.log(isNotFound)
+
   return (
     <section className="films">
       {isLoading && <Preloader />}

@@ -102,6 +102,7 @@ function SectionFilms({ handleLikeFilm, onDeleteCard, savedMovies }) {
         onFilterMoviesFilms={handleShortFilterCheckbox}
         searchFilterMovie={searchFilterMovie}
         isShortMovies={isShortMovies}
+        isNotFound={isNotFound}
       />
       <Films
         cards={filteredMovies}

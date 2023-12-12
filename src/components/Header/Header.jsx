@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import headerLogo from "../../images/header__logo.svg";
 import headerProfile from "../../images/icon__COLOR_icon-main.svg";
 import { useLocation } from "react-router-dom";
+import { NavLink } from 'react-router-dom';
 
 function Header({ handleClickBurger, isActiveBurger, loggedIn }) {
   const mainRoute = useLocation().pathname === "/";
@@ -18,13 +19,14 @@ function Header({ handleClickBurger, isActiveBurger, loggedIn }) {
             loggedIn ? "header__links" : "header__links header__links_inactive"
           }
         >
-          <Link to="/movies" className="header__link">
-            Фильмы
-          </Link>
 
-          <Link to="/saved-movies" className="header__link">
+          <NavLink to="/movies" className="header__link">
+            Фильмы
+          </NavLink>
+
+          <NavLink to="/saved-movies" className="header__link">
             Сохранённые фильмы
-          </Link>
+          </NavLink>
         </div>
         <div
           className={
@@ -86,19 +88,19 @@ function Header({ handleClickBurger, isActiveBurger, loggedIn }) {
           </button>
           <ul className="burger__links">
             <li>
-              <Link to="/" className="burger__link">
+              <NavLink to="/" className="burger__link">
                 Главная
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link to="/films" className="burger__link">
+              <NavLink to="/movies" className="burger__link">
                 Фильмы
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link to="/saved-films" className="burger__link">
+              <NavLink to="/saved-movies" className="burger__link">
                 Сохранённые фильмы
-              </Link>
+              </NavLink>
             </li>
             <li>
               <Link

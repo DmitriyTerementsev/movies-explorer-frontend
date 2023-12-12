@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import FilterCheckbox from "../Checkbox/Checkbox";
 
-function SearchForm({ searchFilterMovie, onFilterMoviesFilms, isShortMovies }) {
+function SearchForm({ searchFilterMovie, onFilterMoviesFilms, isShortMovies, isNotFound }) {
   const [isQueryError, setIsQueryError] = useState(false);
   const [query, setQuery] = useState("");
   const location = useLocation();
@@ -38,7 +38,7 @@ function SearchForm({ searchFilterMovie, onFilterMoviesFilms, isShortMovies }) {
           name="query"
           id="search-input"
           type="text"
-          placeholder="Фильмы"
+          placeholder={isNotFound? 'Введите название фильма': "Фильмы"}
           onChange={handleChangeQuery}
           value={query || ""}
         />

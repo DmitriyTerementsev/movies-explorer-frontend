@@ -209,6 +209,10 @@
   transition: 0.5s;
 }
 
+.active {
+  border-bottom: 1px solid #fff;
+}
+
 @media screen and (max-width: 1023px) {
   .header__container {
     display: flex;
@@ -251,10 +255,6 @@
 
   .header__burger:hover {
     cursor: pointer;
-  }
-
-  .header__auth {
-    display: none;
   }
 
   .header__auth_active {

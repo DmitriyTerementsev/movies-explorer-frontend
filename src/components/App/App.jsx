@@ -90,6 +90,9 @@ function App() {
         setInfoPopupOpen(true);
         setIsSuccess(false);
         console.log(err);
+      })
+      .finally(() => {
+        navigate("/movies", { replace: true });
       });
   }
 
@@ -101,7 +104,6 @@ function App() {
           setInfoPopupOpen(true);
           setIsSuccess(true);
           localStorage.setItem("jwt", res.token);
-          navigate("/movies", { replace: true });
           setLoggedIn(true);
         }
       })
@@ -111,6 +113,7 @@ function App() {
         console.log(err);
       })
       .finally(() => {
+        navigate("/movies", { replace: true });
         setIsLoading(false);
       });
   }
@@ -137,7 +140,7 @@ function App() {
 
   function handleCardLike(card) {
     const jwt = localStorage.getItem("jwt");
-    console.log(card, jwt)
+    console.log(card, jwt);
     MainApi.addCard(card, jwt)
       .then((card) => {
         setSavedMovies([card, ...savedMovies]);
