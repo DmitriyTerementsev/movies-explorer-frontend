@@ -1,9 +1,17 @@
 import { durationConverterTime } from "../../utils/moviesFilter";
 
-function Film({ card, isSavedFilms, handleLikeFilm, onDeleteCard, saved }) {
+function Film({
+  card,
+  isSavedFilms,
+  handleLikeFilm,
+  onDeleteCard,
+  saved,
+  savedMovies,
+}) {
   function onCardClick() {
     if (saved) {
-      onDeleteCard(card)
+      const savedMovie = savedMovies.find((item) => card.id === item.movieId);
+      onDeleteCard(savedMovie);
     } else {
       handleLikeFilm(card);
     }
