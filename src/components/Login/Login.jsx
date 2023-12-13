@@ -1,29 +1,70 @@
-import logo from "../../images/header__logo.svg";
-import { Link } from "react-router-dom";
+import "../Form/Form.css";
+import Form from "../Form/Form";
+import { EMAIL_REGEX } from "../../utils/constants";
+import useForm from "../../hooks/useForm";
 
-function Login() {
+
+function Login({ onLogin, isLoading }) {
+  const { inputValues, errorMessages, handleChange, isValid } = useForm();
+
+  function submitUserInfo(event) {
+    event.preventDefault();
+    onLogin({
+      email: inputValues.email,
+      password: inputValues.password,
+    });
+  }
+
   return (
-    <div className="register">
-      <Link to="/">
-        <img src={logo} alt="Лого" className="register__logo" />
-      </Link>
-      <h3 className="register__title">Рады видеть!</h3>
-      <form className="register__form">
-        <p className="register__input-name">E-mail</p>
-        <input type="email" className="register__input" required/>
-        <p className="register__input-name">Пароль</p>
-        <input type="password" className="register__input" required/>
-        <button className="register__button register__button_login">
-          Войти
-        </button>
-      </form>
-      <p className="register__text">
-        Ещё не зарегистрированы?
-        <Link to="/sign-up" className="register__accent">
-          Регистрация
-        </Link>
-      </p>
-    </div>
+    <>
+      <main>
+        <Form
+          name="login"
+          welcome="Рады видеть!"
+          button="Войти"
+          question="Ещё не зарегистрированы?"
+          path="/signup"
+          link="Регистрация"
+          onSubmit={submitUserInfo}
+          isDisabledButton={isValid}
+          isLoading={isLoading}
+          noValidate
+        >
+          <label className="form__item">
+            E-mail
+            <input
+              className="form__input"
+              name="email"
+              id="email-input"
+              type="email"
+              placeholder="Введите email"
+              onChange={handleChange}
+              pattern={EMAIL_REGEX}
+              value={inputValues.email || ""}
+              required
+            />
+            <span className="form__input-error">{errorMessages.email}</span>
+          </label>
+
+          <label className="form__item">
+            Пароль
+            <input
+              className="form__input"
+              name="password"
+              id="password-input"
+              type="password"
+              minLength="2"
+              maxLength="30"
+              placeholder="Введите пароль"
+              onChange={handleChange}
+              value={inputValues.password || ""}
+              required
+            />
+            <span className="form__input-error">{errorMessages.password}</span>
+          </label>
+        </Form>
+      </main>
+    </>
   );
 }
 

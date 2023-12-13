@@ -28,6 +28,10 @@
   margin: 0 0 0 45px;
 }
 
+.header__links_inactive {
+  display: none;
+}
+
 .header__link {
   margin: 0 16px 0 0;
   font-weight: 400;
@@ -56,6 +60,9 @@
   justify-content: space-between;
   align-items: center;
   text-decoration: none;
+  background-color: transparent;
+  appearance: none;
+  border: 0;
 }
 
 .header__profile-text {
@@ -119,6 +126,10 @@
   text-decoration: none;
 }
 
+.header__profile_active_burger {
+  margin-top: 344px;
+}
+
 .header__button-text {
   background-color: #3ddc84;
   appearance: none;
@@ -146,11 +157,16 @@
   width: 512px;
   z-index: 100;
   top: 0;
-  right: -1000px;
+  right: 0;
+  visibility: hidden;
+  opacity: 0;
+  transition: 0.5s ease all;
 }
 
 .burger_active {
-  transform: translate(1000px);
+  visibility: visible;
+  opacity: 1;
+  transition: 0.5s ease all;
 }
 
 .burger__links {
@@ -158,6 +174,9 @@
   flex-direction: column;
   list-style-type: none;
   padding-left: 0;
+  margin: 144px auto 0 auto;
+  align-items: center;
+  gap: 24px;
 }
 
 .burger__link {
@@ -190,6 +209,10 @@
   transition: 0.5s;
 }
 
+.active {
+  border-bottom: 1px solid #fff;
+}
+
 @media screen and (max-width: 1023px) {
   .header__container {
     display: flex;
@@ -201,14 +224,53 @@
   .header__burger {
     margin-left: auto;
     display: block;
+    appearance: none;
+    border: 0;
+    background-image: url(../../images/burger.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 43px;
+    height: 43px;
+    background-color: transparent;
   }
 
-  .header__auth {
+  .header__burger_inactive {
     display: none;
+  }
+
+  .burger__close-icon {
+    appearance: none;
+    border: 0;
+    background-image: url(../../images/close.svg);
+    width: 22px;
+    height: 22px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-color: transparent;
+  }
+
+  .burger__close-icon:hover {
+    cursor: pointer;
+  }
+
+  .header__burger:hover {
+    cursor: pointer;
+  }
+
+  .header__auth_active {
+    display: flex;
   }
 
   .header__links {
     display: none;
+  }
+
+  .header__profile{
+    display: none;
+  }
+
+  .header__profile_active_burger{
+    display: flex;
   }
 }
 

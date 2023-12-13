@@ -19,13 +19,15 @@
   margin-top: 5px;
 }
 
-.not-found__text:last-of-type {
+.not-found__link{
   font-size: 14px;
   font-weight: 400;
   line-height: 17px;
   text-align: center;
   color: #4285f4;
   margin-top: 184px;
+  text-decoration: none;
+  padding-bottom: 100px;
 }
 
 @media screen and (max-width: 767px) {
